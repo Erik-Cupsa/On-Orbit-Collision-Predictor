@@ -8,7 +8,7 @@ In this project, our team was commissioned by the Canadian Space Agency to devel
 | ----------------- | ------------------ | ---------------------------------- |
 | **Erik Cupsa**    | Full Stack + ML     | Technical leadership, ML models    |
 | **Yassine Mimet** | Back End            | Django API and system architecture |
-| **Wasif Somji**   | Full Stack          | Front-end and back-end development |
+| **Wasif Somji**   | Full Stack          | Full-Stack Development, DevOps |
 | **Masa Kagami**   | Front End + ML      | UI/UX design and ML integration    |
 
 ## 🚀 Key Features
