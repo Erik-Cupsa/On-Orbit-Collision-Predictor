@@ -5,7 +5,7 @@
     "scripts": {
       "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
       "dev:frontend": "cd on-orbit-frontend && npm run dev",
-      "dev:backend": "cd Orbit_Predictor-BackEnd && source ../env/bin/activate && python3 manage.py runserver"
+      "dev:backend": "cd Orbit_Predictor-BackEnd && ../env/bin/python manage.py runserver"
     },
     "devDependencies": {
       "concurrently": "^7.0.0"
