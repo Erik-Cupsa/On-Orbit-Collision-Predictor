@@ -1,7 +1,3 @@
-Yes, the output you’re seeing indicates that both the Next.js frontend (running on `http://localhost:3000`) and the Django backend are successfully running concurrently, as intended. Now, here’s an extended `README.md` file for the project based on our previous discussions:
-
----
-
 # Welcome to the On-Orbit Collision Predictor! 🚀
 
 In this project, our team was commissioned by the Canadian Space Agency to develop a predictive system for on-orbit satellite collision risks. This tool helps assess potential orbital collisions using a blend of machine learning and advanced statistical models. The system allows users to input satellite data, calculate collision probabilities, and manage prediction reports. It's designed for space agencies, satellite operators, and researchers to improve decision-making and avoid costly or dangerous on-orbit collisions.
@@ -68,7 +64,7 @@ On-Orbit-Collision-Predictor/
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-repo/on-orbit-collision-predictor.git
+   git clone https://github.com/Erik-Cupsa/On-Orbit-Collision-Predictor.git
    cd on-orbit-collision-predictor
    ```
 
@@ -91,24 +87,7 @@ On-Orbit-Collision-Predictor/
 
 3. **Database Setup** (in progress)
 
-   Set up a PostgreSQL database locally or use Supabase, then configure the database settings in `orbit_predictor/settings.py`:
-
-   ```python
-   DATABASES = {
-       'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'your_db_name',
-           'USER': 'your_db_user',
-           'PASSWORD': 'your_db_password',
-           'HOST': 'your_db_host',
-           'PORT': 'your_db_port',
-       }
-   }
-   ```
-
-4. **Environment Variables**
-
-   Set up environment variables as needed for Django and Next.js. Consider adding them to `.env` files (e.g., `env/.env` for Django and `on-orbit-frontend/.env.local` for Next.js).
+   We're using Supabase for this. Configure the database settings in your .env file. Reference the .env.example file if needed.
 
 5. **Run Migrations**
 
@@ -146,21 +125,6 @@ This command will start:
 - **Performance Optimization**: Ensure the system performs well under heavy data loads.
 - **Security Enhancements**: Implement additional security measures.
 - **Mobile App**: Develop a mobile version of the system for wider accessibility.
-
-## 📚 Code Organization
-
-### Backend
-
-- `api/models.py`: Contains database models for `Conjunction`, `Collision`, and `ProbabilityCalc`.
-- `api/serializers.py`: Serializes model data for JSON responses.
-- `api/views.py`: Defines API views for creating and retrieving collision prediction data.
-- `api/urls.py`: Routes API endpoints.
-
-### Frontend
-
-- `on-orbit-frontend/pages`: Contains Next.js page components.
-- `on-orbit-frontend/components`: Shared components for UI.
-- `on-orbit-frontend/utils`: Helper functions for API requests and data handling.
 
 ## 📞 Contact Us
 
