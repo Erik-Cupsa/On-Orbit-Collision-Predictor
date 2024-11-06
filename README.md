@@ -64,7 +64,7 @@ On-Orbit-Collision-Predictor/
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-repo/on-orbit-collision-predictor.git
+   git clone https://github.com/Erik-Cupsa/On-Orbit-Collision-Predictor.git
    cd on-orbit-collision-predictor
    ```
 
