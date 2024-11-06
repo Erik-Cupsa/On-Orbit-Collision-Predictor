@@ -87,24 +87,20 @@ On-Orbit-Collision-Predictor/
 
 3. **Database Setup** (in progress)
 
-   Set up a PostgreSQL database locally or use Supabase, then configure the database settings in `orbit_predictor/settings.py`:
+   We're using Supabase for this. Configure the database settings in your .env file. 
 
    ```python
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'your_db_name',
-           'USER': 'your_db_user',
-           'PASSWORD': 'your_db_password',
-           'HOST': 'your_db_host',
-           'PORT': 'your_db_port',
+           'NAME': os.getenv('SUPABASE_DB_NAME'),
+           'USER': os.getenv('SUPABASE_DB_USER'),
+           'PASSWORD': os.getenv('SUPABASE_DB_PASSWORD'),
+           'HOST': os.getenv('SUPABASE_DB_HOST'),
+           'PORT': os.getenv('SUPABASE_DB_PORT'),
        }
    }
    ```
-
-4. **Environment Variables**
-
-   Set up environment variables as needed for Django and Next.js. Consider adding them to `.env` files (e.g., `env/.env` for Django and `on-orbit-frontend/.env.local` for Next.js).
 
 5. **Run Migrations**
 
