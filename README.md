@@ -96,7 +96,8 @@ On-Orbit-Collision-Predictor/
    python manage.py makemigrations
    python manage.py migrate
    ```
-   Database Layout:
+   **Database Layout**:
+   
    **api_collision**: This table was created from the Collision model. It stores data for collisions related to conjunctions, including information like satellite_id, collision_date,    and risk_factor.
 
    **api_conjunction**: This table corresponds to the Conjunction model, storing conjunction records that include details like satellite_id, date, risk_factor, and description.
