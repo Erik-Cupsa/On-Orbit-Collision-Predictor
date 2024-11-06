@@ -96,6 +96,8 @@ On-Orbit-Collision-Predictor/
    python manage.py makemigrations
    python manage.py migrate
    ```
+   These are the database tables configured: 
+<img width="613" alt="Screenshot 2024-11-06 at 2 56 14 PM" src="https://github.com/user-attachments/assets/9072e4b6-ae8e-469b-a4ff-487614961608">
 
 ### Running the Project
 
@@ -125,6 +127,7 @@ This command will start:
 - **Performance Optimization**: Ensure the system performs well under heavy data loads.
 - **Security Enhancements**: Implement additional security measures.
 - **Mobile App**: Develop a mobile version of the system for wider accessibility.
+- 
 
 ## 📞 Contact Us
 
