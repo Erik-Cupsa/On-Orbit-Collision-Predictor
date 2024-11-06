@@ -79,7 +79,7 @@ On-Orbit-Collision-Predictor/
      ```bash
      python3 -m venv env
      source env/bin/activate
-     pip install django djangorestframework
+     pip install -r requirements.txt
      ```
 
    - **Frontend**: Navigate to the `on-orbit-frontend` folder and install dependencies.
