@@ -87,20 +87,7 @@ On-Orbit-Collision-Predictor/
 
 3. **Database Setup** (in progress)
 
-   We're using Supabase for this. Configure the database settings in your .env file. 
-
-   ```python
-   DATABASES = {
-       'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': os.getenv('SUPABASE_DB_NAME'),
-           'USER': os.getenv('SUPABASE_DB_USER'),
-           'PASSWORD': os.getenv('SUPABASE_DB_PASSWORD'),
-           'HOST': os.getenv('SUPABASE_DB_HOST'),
-           'PORT': os.getenv('SUPABASE_DB_PORT'),
-       }
-   }
-   ```
+   We're using Supabase for this. Configure the database settings in your .env file. Reference the .env.example file if needed.
 
 5. **Run Migrations**
 
@@ -138,21 +125,6 @@ This command will start:
 - **Performance Optimization**: Ensure the system performs well under heavy data loads.
 - **Security Enhancements**: Implement additional security measures.
 - **Mobile App**: Develop a mobile version of the system for wider accessibility.
-
-## 📚 Code Organization
-
-### Backend
-
-- `api/models.py`: Contains database models for `Conjunction`, `Collision`, and `ProbabilityCalc`.
-- `api/serializers.py`: Serializes model data for JSON responses.
-- `api/views.py`: Defines API views for creating and retrieving collision prediction data.
-- `api/urls.py`: Routes API endpoints.
-
-### Frontend
-
-- `on-orbit-frontend/pages`: Contains Next.js page components.
-- `on-orbit-frontend/components`: Shared components for UI.
-- `on-orbit-frontend/utils`: Helper functions for API requests and data handling.
 
 ## 📞 Contact Us
 
