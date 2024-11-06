@@ -1,7 +1,3 @@
-Yes, the output you’re seeing indicates that both the Next.js frontend (running on `http://localhost:3000`) and the Django backend are successfully running concurrently, as intended. Now, here’s an extended `README.md` file for the project based on our previous discussions:
-
----
-
 # Welcome to the On-Orbit Collision Predictor! 🚀
 
 In this project, our team was commissioned by the Canadian Space Agency to develop a predictive system for on-orbit satellite collision risks. This tool helps assess potential orbital collisions using a blend of machine learning and advanced statistical models. The system allows users to input satellite data, calculate collision probabilities, and manage prediction reports. It's designed for space agencies, satellite operators, and researchers to improve decision-making and avoid costly or dangerous on-orbit collisions.
