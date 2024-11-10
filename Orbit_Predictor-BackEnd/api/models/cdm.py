@@ -22,6 +22,17 @@ class CDM(models.Model):
     sat1_y_dot = models.FloatField()  # Y velocity
     sat1_z_dot = models.FloatField()  # Z velocity
 
+    # Covariance matrix elements for Satellite 1
+    sat1_cov_rr = models.FloatField(null=True, blank=True)  # Covariance rr element
+    sat1_cov_rt = models.FloatField(null=True, blank=True)  # Covariance rt element
+    sat1_cov_rn = models.FloatField(null=True, blank=True)  # Covariance rn element
+    sat1_cov_tr = models.FloatField(null=True, blank=True)  # Covariance tr element
+    sat1_cov_tt = models.FloatField(null=True, blank=True)  # Covariance tt element
+    sat1_cov_tn = models.FloatField(null=True, blank=True)  # Covariance tn element
+    sat1_cov_nr = models.FloatField(null=True, blank=True)  # Covariance nr element
+    sat1_cov_nt = models.FloatField(null=True, blank=True)  # Covariance nt element
+    sat1_cov_nn = models.FloatField(null=True, blank=True)  # Covariance nn element
+
     # Satellite 2 Details
     sat2_object = models.CharField(max_length=50)
     sat2_object_designator = models.CharField(max_length=50)
@@ -32,6 +43,20 @@ class CDM(models.Model):
     sat2_x_dot = models.FloatField()  # X velocity
     sat2_y_dot = models.FloatField()  # Y velocity
     sat2_z_dot = models.FloatField()  # Z velocity
+
+    # Covariance matrix elements for Satellite 2
+    sat2_cov_rr = models.FloatField(null=True, blank=True)  # Covariance rr element
+    sat2_cov_rt = models.FloatField(null=True, blank=True)  # Covariance rt element
+    sat2_cov_rn = models.FloatField(null=True, blank=True)  # Covariance rn element
+    sat2_cov_tr = models.FloatField(null=True, blank=True)  # Covariance tr element
+    sat2_cov_tt = models.FloatField(null=True, blank=True)  # Covariance tt element
+    sat2_cov_tn = models.FloatField(null=True, blank=True)  # Covariance tn element
+    sat2_cov_nr = models.FloatField(null=True, blank=True)  # Covariance nr element
+    sat2_cov_nt = models.FloatField(null=True, blank=True)  # Covariance nt element
+    sat2_cov_nn = models.FloatField(null=True, blank=True)  # Covariance nn element
+
+    # Hard Body Radius
+    hard_body_radius = models.FloatField(default=20)  # Hard Body Radius (HBR)
 
     def __str__(self):
         return f"CDM {self.message_id} between {self.sat1_object} and {self.sat2_object}"

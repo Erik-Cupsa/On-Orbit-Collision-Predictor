@@ -1,8 +1,8 @@
 from django.db import models
-from .collision import Collision
+from .conjuction import Conjunction
 
 class ProbabilityCalc(models.Model):
-    collision = models.ForeignKey(Collision, on_delete=models.CASCADE, related_name='probability_calculations')
+    conjuction = models.ForeignKey(Conjunction, on_delete=models.CASCADE, related_name='probability_calcs')
     probability_value = models.FloatField()
     time_to_impact = models.DurationField()
 

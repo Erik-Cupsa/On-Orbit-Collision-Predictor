@@ -49,6 +49,17 @@ class Command(BaseCommand):
                     "sat1_y_dot": float(item.get("SAT1_Y_DOT", 0)),
                     "sat1_z_dot": float(item.get("SAT1_Z_DOT", 0)),
 
+                    # Covariance matrix for Satellite 1
+                    "sat1_cov_rr": float(item.get("SAT1_CR_R", 0)),
+                    "sat1_cov_rt": float(item.get("SAT1_CT_R", 0)),
+                    "sat1_cov_rn": float(item.get("SAT1_CN_R", 0)),
+                    "sat1_cov_tr": float(item.get("SAT1_CR_T", 0)),
+                    "sat1_cov_tt": float(item.get("SAT1_CT_T", 0)),
+                    "sat1_cov_tn": float(item.get("SAT1_CN_T", 0)),
+                    "sat1_cov_nr": float(item.get("SAT1_CR_N", 0)),
+                    "sat1_cov_nt": float(item.get("SAT1_CT_N", 0)),
+                    "sat1_cov_nn": float(item.get("SAT1_CN_N", 0)),
+
                     # Satellite 2 details
                     "sat2_object": item.get("SAT2_OBJECT"),
                     "sat2_object_designator": item.get("SAT2_OBJECT_DESIGNATOR"),
@@ -59,6 +70,20 @@ class Command(BaseCommand):
                     "sat2_x_dot": float(item.get("SAT2_X_DOT", 0)),
                     "sat2_y_dot": float(item.get("SAT2_Y_DOT", 0)),
                     "sat2_z_dot": float(item.get("SAT2_Z_DOT", 0)),
+
+                    # Covariance matrix for Satellite 2
+                    "sat2_cov_rr": float(item.get("SAT2_CR_R", 0)),
+                    "sat2_cov_rt": float(item.get("SAT2_CT_R", 0)),
+                    "sat2_cov_rn": float(item.get("SAT2_CN_R", 0)),
+                    "sat2_cov_tr": float(item.get("SAT2_CR_T", 0)),
+                    "sat2_cov_tt": float(item.get("SAT2_CT_T", 0)),
+                    "sat2_cov_tn": float(item.get("SAT2_CN_T", 0)),
+                    "sat2_cov_nr": float(item.get("SAT2_CR_N", 0)),
+                    "sat2_cov_nt": float(item.get("SAT2_CT_N", 0)),
+                    "sat2_cov_nn": float(item.get("SAT2_CN_N", 0)),
+
+                    # Hard Body Radius (if present in JSON data)
+                    "hard_body_radius": float(item.get("HBR", 0))
                 }
             )
             action = "Created" if created else "Updated"

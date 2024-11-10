@@ -1,7 +1,8 @@
 from django.db import models
+from .cdm import CDM
 
 class Conjunction(models.Model):
-    satellite_id = models.CharField(max_length=100)
+    cdm = models.ForeignKey(CDM, on_delete=models.CASCADE, related_name='conjunctions')
     date = models.DateTimeField()
     risk_factor = models.FloatField()
     description = models.TextField()
