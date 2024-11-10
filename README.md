@@ -96,6 +96,13 @@ On-Orbit-Collision-Predictor/
    python manage.py makemigrations
    python manage.py migrate
    ```
+   **Database Layout**:
+   
+   **api_collision**: This table was created from the Collision model. It stores data for collisions related to conjunctions, including information like satellite_id, collision_date,    and risk_factor.
+
+   **api_conjunction**: This table corresponds to the Conjunction model, storing conjunction records that include details like satellite_id, date, risk_factor, and description.
+
+   **api_probabilitycalc**: This table was created from the ProbabilityCalc model. It stores calculated probabilities related to collisions, including fields like probability_value       and time_to_impact.
 
 ### Running the Project
 
@@ -125,6 +132,7 @@ This command will start:
 - **Performance Optimization**: Ensure the system performs well under heavy data loads.
 - **Security Enhancements**: Implement additional security measures.
 - **Mobile App**: Develop a mobile version of the system for wider accessibility.
+- 
 
 ## 📞 Contact Us
 
