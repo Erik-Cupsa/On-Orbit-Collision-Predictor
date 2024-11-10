@@ -2,7 +2,7 @@ from django.db import models
 from .cdm import CDM
 
 class Conjunction(models.Model):
-    cdm = models.ForeignKey(CDM, on_delete=models.CASCADE, related_name='conjunctions')
+    cdm_id = models.ForeignKey(CDM, on_delete=models.CASCADE, related_name='conjunctions')
     date = models.DateTimeField()
     risk_factor = models.FloatField()
     description = models.TextField()
