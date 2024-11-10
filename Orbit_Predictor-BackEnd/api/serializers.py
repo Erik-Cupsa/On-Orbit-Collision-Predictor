@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Conjunction, Collision, ProbabilityCalc
+from .models import Conjunction, Collision, ProbabilityCalc, CDM
 
 class ConjunctionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +14,9 @@ class CollisionSerializer(serializers.ModelSerializer):
 class ProbabilityCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProbabilityCalc
+        fields = '__all__'
+
+class CDMSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CDM
         fields = '__all__'

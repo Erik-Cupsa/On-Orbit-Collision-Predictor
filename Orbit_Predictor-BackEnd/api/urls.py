@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     ConjunctionListCreateView, ConjunctionDetailView,
     CollisionListCreateView, CollisionDetailView,
-    ProbabilityCalcListCreateView, ProbabilityCalcDetailView
+    ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
+    CDMSerializerListCreateView, CDMCalcDetailView
 )
 
 urlpatterns = [
@@ -18,4 +19,7 @@ urlpatterns = [
     # Probability Calculation URLs
     path('probabilities/', ProbabilityCalcListCreateView.as_view(), name='probability-list-create'),
     path('probabilities/<int:pk>/', ProbabilityCalcDetailView.as_view(), name='probability-detail'),
+
+    path('/cdms/', CDMSerializerListCreateView.as_view(), name='cdm-list-create'),
+    path('/cdms/<int:pk>/', CDMCalcDetailView.as_view(), name='cdm-detail')
 ]

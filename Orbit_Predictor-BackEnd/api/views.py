@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Conjunction, Collision, ProbabilityCalc
-from .serializers import ConjunctionSerializer, CollisionSerializer, ProbabilityCalcSerializer
+from .models import Conjunction, Collision, ProbabilityCalc, CDM
+from .serializers import ConjunctionSerializer, CollisionSerializer, ProbabilityCalcSerializer, CDMSerializer
 
 # Conjunction Views
 class ConjunctionListCreateView(generics.ListCreateAPIView):
@@ -28,3 +28,12 @@ class ProbabilityCalcListCreateView(generics.ListCreateAPIView):
 class ProbabilityCalcDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProbabilityCalc.objects.all()
     serializer_class = ProbabilityCalcSerializer
+
+# CDMSerializer Views
+class CDMSerializerListCreateView(generics.ListCreateAPIView):
+    queryset = CDM.objects.all()
+    serializer_class = CDMSerializer
+
+class CDMCalcDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CDM.objects.all()
+    serializer_class = CDMSerializer
