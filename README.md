@@ -7,8 +7,8 @@ In this project, our team was commissioned by the Canadian Space Agency to devel
 | Member            | Position           | Responsibilities                   |
 | ----------------- | ------------------ | ---------------------------------- |
 | **Erik Cupsa**    | Full Stack + ML     | Technical leadership, ML models    |
-| **Yassine Mimet** | Back End            | Django API and system architecture |
-| **Wasif Somji**   | Full Stack          | Full-Stack Development, DevOps |
+| **Yassine Mimet** | Back End            | Collision Calculations, Data Processing |
+| **Wasif Somji**   | Full Stack          | Full-Stack Development, Backend Architecture |
 | **Masa Kagami**   | Front End + ML      | UI/UX design and ML integration    |
 
 ## 🚀 Key Features
@@ -97,6 +97,8 @@ On-Orbit-Collision-Predictor/
    python manage.py migrate
    ```
    **Database Layout**:
+   
+   **api_cdms**: This table holds the CDM data. If a conjuction is present, a entry will be created in the api_conjuction table corresponding to the CDM.
    
    **api_collision**: This table was created from the Collision model. It stores data for collisions related to conjunctions, including information like satellite_id, collision_date,    and risk_factor.
 

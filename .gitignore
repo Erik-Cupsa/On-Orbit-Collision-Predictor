@@ -1,5 +1,9 @@
 env/
 Orbit_Predictor-BackEnd/.env
-api/__pycache__
-orbit_predictor/__pycache__
-api/migrations/__pycache__
+Orbit_Predictor-BackEnd/api/__pycache__/
+Orbit_Predictor-BackEnd/orbit_predictor/__pycache__/
+Orbit_Predictor-BackEnd/api/migrations/__pycache__/
+Orbit_Predictor-BackEnd/api/models/__pycache__/
+Orbit_Predictor-BackEnd/api/serializers/__pycache__/
+Orbit_Predictor-BackEnd/api/views/__pycache__/
+Orbit_Predictor-BackEnd/api/management/commands/__pycache__/
