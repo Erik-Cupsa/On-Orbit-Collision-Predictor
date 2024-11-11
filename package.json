@@ -3,12 +3,16 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-      "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-      "dev:frontend": "cd on-orbit-frontend && npm run dev",
-      "dev:backend": "cd Orbit_Predictor-BackEnd && ../env/bin/python manage.py runserver"
+        "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+        "dev:frontend": "cd on-orbit-frontend && npm run dev",
+        "dev:backend": "cd Orbit_Predictor-BackEnd && ../env/bin/python manage.py runserver"
     },
     "devDependencies": {
-      "concurrently": "^7.0.0"
+        "concurrently": "^7.0.0"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.13.3",
+        "@emotion/styled": "^11.13.0",
+        "@mui/material": "^6.1.6"
     }
-  }
-  
+}
