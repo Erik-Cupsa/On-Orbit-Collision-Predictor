@@ -76,6 +76,8 @@ On-Orbit-Collision-Predictor/
      python3 -m venv env
      source env/bin/activate
      pip install -r requirements.txt
+     pip install psycopg2-binary
+     pip install python-dotenv
      ```
 
    - **Frontend**: Navigate to the `on-orbit-frontend` folder and install dependencies.
