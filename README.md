@@ -76,8 +76,6 @@ On-Orbit-Collision-Predictor/
      python3 -m venv env
      source env/bin/activate
      pip install -r requirements.txt
-     pip install psycopg2-binary
-     pip install python-dotenv
      ```
 
    - **Frontend**: Navigate to the `on-orbit-frontend` folder and install dependencies.
@@ -104,7 +102,7 @@ On-Orbit-Collision-Predictor/
    
    **api_collision**: This table was created from the Collision model. It stores data for collisions related to conjunctions, including information like satellite_id, collision_date,    and risk_factor.
 
-   **api_conjunction**: This table corresponds to the Conjunction model, storing conjunction records that include details like satellite_id, date, risk_factor, and description.
+   **api_conjunction**: This table corresponds to the Conjunction model, storing conjunction records.
 
    **api_probabilitycalc**: This table was created from the ProbabilityCalc model. It stores calculated probabilities related to collisions, including fields like probability_value       and time_to_impact.
 
