@@ -94,14 +94,17 @@ DATABASES = {
 # REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'api.authentication.JWTAuthentication',  # Use your custom JWT Authentication
+        'api.authentication.JWTAuthentication',  # Your custom JWT Auth
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Require JWT for API
+        'rest_framework.permissions.IsAuthenticated',  # Require JWT
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    # IMPORTANT: Override these defaults
+    'UNAUTHENTICATED_USER': None,
+    'UNAUTHENTICATED_TOKEN': None,
 }
 
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
