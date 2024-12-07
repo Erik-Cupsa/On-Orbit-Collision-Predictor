@@ -53,7 +53,7 @@ On-Orbit-Collision-Predictor/
 
 ### Prerequisites
 
-- **Python 3.10+** and **Django** for the backend
+- **Python 3.10+** (but less than 3.13) and **Django** for the backend to run **MATLAB**
 - **Node.js** and **npm** for the Next.js frontend
 - **MATLAB** for initial prediction calculations (optional for extended functionality)
 - **PostgreSQL** for database management
