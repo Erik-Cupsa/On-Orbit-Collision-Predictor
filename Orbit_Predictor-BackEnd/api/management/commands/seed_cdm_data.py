@@ -83,7 +83,9 @@ class Command(BaseCommand):
                     "sat2_cov_nn": float(item.get("SAT2_CN_N", 0)),
 
                     # Hard Body Radius (if present in JSON data)
-                    "hard_body_radius": float(item.get("HBR", 0))
+                    "hard_body_radius": float(item.get("HBR", 0)),
+
+                    "privacy": item.get("privacy", False)
                 }
             )
             action = "Created" if created else "Updated"
