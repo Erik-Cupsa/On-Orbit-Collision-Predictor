@@ -19,22 +19,6 @@ export default function Home() {
           <p className="text-gray-700 mb-4">
             Explore detailed data on various satellites currently in orbit. Our database includes information on satellite positions, velocities, and other relevant parameters.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Example satellite data cards */}
-            <div className="bg-white p-4 rounded shadow">
-              <h3 className="text-xl font-bold mb-2">Satellite 1</h3>
-              <p className="text-gray-700">Position: (X, Y, Z)</p>
-              <p className="text-gray-700">Velocity: (Vx, Vy, Vz)</p>
-              <p className="text-gray-700">Other data...</p>
-            </div>
-            <div className="bg-white p-4 rounded shadow">
-              <h3 className="text-xl font-bold mb-2">Satellite 2</h3>
-              <p className="text-gray-700">Position: (X, Y, Z)</p>
-              <p className="text-gray-700">Velocity: (Vx, Vy, Vz)</p>
-              <p className="text-gray-700">Other data...</p>
-            </div>
-            {/* Add more satellite data cards as needed */}
-          </div>
         </section>
 
         <section className="my-8">
@@ -42,14 +26,6 @@ export default function Home() {
           <p className="text-gray-700 mb-4">
             Our advanced algorithms predict the probability of collisions between satellites. Stay informed about potential risks and take necessary precautions to avoid collisions.
           </p>
-          <div className="bg-white p-4 rounded shadow">
-            <h3 className="text-xl font-bold mb-2">Prediction Example</h3>
-            <p className="text-gray-700">Satellite 1: Satellite 1 Name</p>
-            <p className="text-gray-700">Satellite 2: Satellite 2 Name</p>
-            <p className="text-gray-700">Probability of Collision: 0.01%</p>
-            <p className="text-gray-700">Time to Impact: 2 hours</p>
-            {/* Add more prediction details as needed */}
-          </div>
         </section>
       </main>
       <Footer />
