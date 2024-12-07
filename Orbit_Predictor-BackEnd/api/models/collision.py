@@ -3,8 +3,7 @@ from .cdm import CDM
 
 class Collision(models.Model):
     cdm = models.ForeignKey(CDM, on_delete=models.CASCADE, related_name='collisions')
-    collision_date = models.DateTimeField()
-    risk_factor = models.FloatField()
+    probability_of_collision = models.FloatField()
     sat1_object_designator = models.CharField(max_length=50)
     sat2_object_designator = models.CharField(max_length=50)
 
