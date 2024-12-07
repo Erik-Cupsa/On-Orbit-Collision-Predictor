@@ -1,12 +1,16 @@
 # api/authentication.py
 
 import jwt
-from rest_framework import authentication, exceptions
 from django.conf import settings
-from .models import User  # Ensure this points to your custom User model
-import os
+from rest_framework import authentication, exceptions
+from .models import User
+
 
 class JWTAuthentication(authentication.BaseAuthentication):
+    """
+    Custom JWT Authentication class.
+    """
+
     def authenticate(self, request):
         auth_header = authentication.get_authorization_header(request)
 
@@ -30,9 +34,16 @@ class JWTAuthentication(authentication.BaseAuthentication):
         except jwt.InvalidTokenError:
             raise exceptions.AuthenticationFailed('Invalid token.')
 
+        user_id = payload.get('user_id')
+        role = payload.get('role')
+
         try:
-            user = User.objects.get(id=payload['user_id'])
+            user = User.objects.get(id=user_id)
         except User.DoesNotExist:
             raise exceptions.AuthenticationFailed('User not found.')
+
+        # Optionally, you can verify the role matches
+        if user.role != role:
+            raise exceptions.AuthenticationFailed('Invalid token payload.')
 
         return (user, token)
