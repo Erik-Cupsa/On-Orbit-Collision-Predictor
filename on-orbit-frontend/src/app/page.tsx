@@ -1,70 +1,58 @@
+import Footer from "@/components/footer/page";
+import Navbar from "@/components/navbar/page";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-4xl font-bold">Welcome to the On-Orbit Collision Predictor!</h1>
-        <p className="text-lg text-center sm:text-left">
-          Predict and analyze potential collisions in orbit with our advanced tools.
-        </p>
+    <>
+      <Navbar />
+      <main className="container mx-auto p-4">
+        <section className="text-center my-8">
+          <h1 className="text-4xl font-bold mb-4">On-Orbit Collision Predictor</h1>
+          <p className="text-lg text-gray-700">
+            Welcome to the On-Orbit Collision Predictor, a McGill Capstone project in collaboration with the Canadian Space Agency. Our app provides data on satellites in orbit and predicts the probability of collisions.
+          </p>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="#"
-          >
-            Get Started
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="#"
-          >
-            Learn More
-          </a>
-        </div>
+        <section className="my-8">
+          <h2 className="text-2xl font-bold mb-4">Satellite Data</h2>
+          <p className="text-gray-700 mb-4">
+            Explore detailed data on various satellites currently in orbit. Our database includes information on satellite positions, velocities, and other relevant parameters.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Example satellite data cards */}
+            <div className="bg-white p-4 rounded shadow">
+              <h3 className="text-xl font-bold mb-2">Satellite 1</h3>
+              <p className="text-gray-700">Position: (X, Y, Z)</p>
+              <p className="text-gray-700">Velocity: (Vx, Vy, Vz)</p>
+              <p className="text-gray-700">Other data...</p>
+            </div>
+            <div className="bg-white p-4 rounded shadow">
+              <h3 className="text-xl font-bold mb-2">Satellite 2</h3>
+              <p className="text-gray-700">Position: (X, Y, Z)</p>
+              <p className="text-gray-700">Velocity: (Vx, Vy, Vz)</p>
+              <p className="text-gray-700">Other data...</p>
+            </div>
+            {/* Add more satellite data cards as needed */}
+          </div>
+        </section>
+
+        <section className="my-8">
+          <h2 className="text-2xl font-bold mb-4">Collision Probability Prediction</h2>
+          <p className="text-gray-700 mb-4">
+            Our advanced algorithms predict the probability of collisions between satellites. Stay informed about potential risks and take necessary precautions to avoid collisions.
+          </p>
+          <div className="bg-white p-4 rounded shadow">
+            <h3 className="text-xl font-bold mb-2">Prediction Example</h3>
+            <p className="text-gray-700">Satellite 1: Satellite 1 Name</p>
+            <p className="text-gray-700">Satellite 2: Satellite 2 Name</p>
+            <p className="text-gray-700">Probability of Collision: 0.01%</p>
+            <p className="text-gray-700">Time to Impact: 2 hours</p>
+            {/* Add more prediction details as needed */}
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="#"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Documentation
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="#"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="#"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to Homepage →
-        </a>
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 }
