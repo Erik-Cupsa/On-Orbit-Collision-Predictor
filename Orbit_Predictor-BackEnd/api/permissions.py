@@ -36,9 +36,7 @@ class CanViewCDM(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.role in ['admin', 'collision_analyst']:
             return True
-        elif request.user.role == 'user':
-            return obj.privacy is True
-        return False
+        return obj.privacy
 
     def has_permission(self, request, view):
         # Allow access only if the user is authenticated

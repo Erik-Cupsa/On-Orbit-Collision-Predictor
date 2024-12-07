@@ -1,7 +1,7 @@
 # api/serializers.py
 
 from rest_framework import serializers
-from .models import User, CDM
+from ..models import User, CDM
 import jwt
 import datetime
 from django.conf import settings
@@ -126,16 +126,63 @@ class RefreshTokenSerializer(serializers.Serializer):
 class CDMSerializer(serializers.ModelSerializer):
     class Meta:
         model = CDM
-        fields = ['id', 'satellite_1', 'satellite_2', 'conjunction_time', 'privacy']
+        fields = [
+            'id',
+            'ccsds_cdm_version',
+            'creation_date',
+            'originator',
+            'message_id',
+            'privacy',
+            'tca',
+            'miss_distance',
+            # Satellite 1 Details
+            'sat1_object',
+            'sat1_object_designator',
+            'sat1_maneuverable',
+            'sat1_x',
+            'sat1_y',
+            'sat1_z',
+            'sat1_x_dot',
+            'sat1_y_dot',
+            'sat1_z_dot',
+            'sat1_cov_rr',
+            'sat1_cov_rt',
+            'sat1_cov_rn',
+            'sat1_cov_tr',
+            'sat1_cov_tt',
+            'sat1_cov_tn',
+            'sat1_cov_nr',
+            'sat1_cov_nt',
+            'sat1_cov_nn',
+            # Satellite 2 Details
+            'sat2_object',
+            'sat2_object_designator',
+            'sat2_maneuverable',
+            'sat2_x',
+            'sat2_y',
+            'sat2_z',
+            'sat2_x_dot',
+            'sat2_y_dot',
+            'sat2_z_dot',
+            'sat2_cov_rr',
+            'sat2_cov_rt',
+            'sat2_cov_rn',
+            'sat2_cov_tr',
+            'sat2_cov_tt',
+            'sat2_cov_tn',
+            'sat2_cov_nr',
+            'sat2_cov_nt',
+            'sat2_cov_nn',
+            'hard_body_radius',
+        ]
         read_only_fields = ['id']
 
     def create(self, validated_data):
         return CDM.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.satellite_1 = validated_data.get('satellite_1', instance.satellite_1)
-        instance.satellite_2 = validated_data.get('satellite_2', instance.satellite_2)
-        instance.conjunction_time = validated_data.get('conjunction_time', instance.conjunction_time)
-        instance.privacy = validated_data.get('privacy', instance.privacy)
+        for field in self.Meta.fields:
+            if field != 'id':
+                setattr(instance, field, validated_data.get(field, getattr(instance, field)))
         instance.save()
         return instance

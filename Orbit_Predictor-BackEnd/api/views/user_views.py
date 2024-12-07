@@ -3,11 +3,9 @@
 from rest_framework import generics, status, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .permissions import IsAdmin, IsCollisionAnalyst, IsUser, CanViewCDM
-from .serializers import UserSerializer, LoginSerializer, CDMSerializer, RefreshTokenSerializer
-from .models import User, CDM
-from ratelimit.decorators import ratelimit
-
+from ..permissions import IsAdmin, IsCollisionAnalyst, IsUser, CanViewCDM
+from ..serializers import UserSerializer, LoginSerializer, CDMSerializer, RefreshTokenSerializer
+from ..models import User, CDM
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -30,7 +28,6 @@ class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
     permission_classes = [AllowAny]  # Public access
 
-    @ratelimit(key='ip', rate='5/m', block=True)
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
