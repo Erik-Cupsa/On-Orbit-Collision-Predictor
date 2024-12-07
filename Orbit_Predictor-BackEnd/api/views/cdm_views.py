@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from ..models import CDM
+from ..models import Collision
 from ..serializers import CDMSerializer
 from ..permissions import IsAdmin, CanViewCDM
 
@@ -97,11 +98,11 @@ class CDMCreateView(APIView):
                 "sat2_cov_nn": float(data.get("SAT2_CN_N", 0)),
 
                 # Hard Body Radius (if present in JSON data)
-                "hard_body_radius": float(data.get("HBR", 0)),
+                "hard_body_radius": float(20),
 
                 "privacy": data.get("privacy", False)
             }
         )
-
+        Collision.create_from_cdm(cdm)
         action = "Created" if created else "Updated"
         return Response({"message": f"{action} CDM entry with MESSAGE_ID: {cdm.message_id}"}, status=status.HTTP_201_CREATED)
