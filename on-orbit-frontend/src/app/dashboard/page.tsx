@@ -16,15 +16,15 @@ export default function Dashboard() {
                             {/* Add more user information as needed */}
                         </div>
                         <div className="bg-white p-4 rounded shadow">
-                            <h3 className="text-xl font-bold mb-2 text-black">Recent Activities</h3>
-                            <p className="text-gray-700">Activity 1</p>
-                            <p className="text-gray-700">Activity 2</p>
-                            <p className="text-gray-700">Activity 3</p>
+                            <h3 className="text-xl font-bold mb-2 text-black">Recently Viewed CDMs</h3>
+                            <p className="text-gray-700">CDM 1</p>
+                            <p className="text-gray-700">CDM 2</p>
+                            <p className="text-gray-700">CDM 3</p>
                             {/* Add more recent activities as needed */}
                         </div>
                         <div className="bg-white p-4 rounded shadow">
-                            <h3 className="text-xl font-bold mb-2 text-black">Other Data</h3>
-                            <p className="text-gray-700">Placeholder for other data</p>
+                            <h3 className="text-xl font-bold mb-2 text-black">Saved CDMs</h3>
+                            <p className="text-gray-700">Placeholder for Saved CDMs</p>
                             {/* Add more placeholders as needed */}
                         </div>
                     </div>
