@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import (
-    ConjunctionListCreateView, ConjunctionDetailView,
     CollisionListCreateView, CollisionDetailView,
     ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
     CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView
@@ -8,8 +7,6 @@ from .views import (
 )
 
 urlpatterns = [
-    path('conjunctions/', ConjunctionListCreateView.as_view(), name='conjunction-list-create'),
-    path('conjunctions/<int:pk>/', ConjunctionDetailView.as_view(), name='conjunction-detail'),
     path('collisions/', CollisionListCreateView.as_view(), name='collision-list-create'),
     path('collisions/<int:pk>/', CollisionDetailView.as_view(), name='collision-detail'),
     path('probabilities/', ProbabilityCalcListCreateView.as_view(), name='probability-list-create'),
