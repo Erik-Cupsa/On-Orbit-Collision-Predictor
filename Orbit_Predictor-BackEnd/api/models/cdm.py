@@ -6,6 +6,7 @@ class CDM(models.Model):
     creation_date = models.DateTimeField()
     originator = models.CharField(max_length=50)
     message_id = models.CharField(max_length=100, unique=True)
+    privacy = models.BooleanField(default=True)
 
     # Conjunction Details
     tca = models.DateTimeField()  # Time of Closest Approach

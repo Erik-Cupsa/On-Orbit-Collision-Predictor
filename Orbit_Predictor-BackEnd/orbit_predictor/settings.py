@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import datetime
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -91,24 +92,29 @@ DATABASES = {
 }
 
 
+ADMIN_REGISTRATION_CODE = os.getenv('ADMIN_REGISTRATION_CODE', 'default_admin_code')
+
 # REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'api.authentication.JWTAuthentication',  # Your custom JWT Auth
+        'api.authentication.JWTAuthentication',  # Your custom JWT Authentication
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Require JWT
+        'rest_framework.permissions.IsAuthenticated',  # Default to authenticated
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    # IMPORTANT: Override these defaults
+    # Override these defaults to prevent DRF from using Django's auth system
     'UNAUTHENTICATED_USER': None,
     'UNAUTHENTICATED_TOKEN': None,
 }
 
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+JWT_ACCESS_EXPIRATION_DELTA = datetime.timedelta(hours=24)  # Access token valid for 24 hours
+JWT_REFRESH_EXPIRATION_DELTA = datetime.timedelta(days=7)  # Refresh token valid for 7 days
 
+AUTH_USER_MODEL = 'api.User'
 
 
 # # Password validation

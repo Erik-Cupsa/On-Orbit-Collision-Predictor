@@ -1,11 +1,14 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 from .views import (
     ConjunctionListCreateView, ConjunctionDetailView,
     CollisionListCreateView, CollisionDetailView,
     ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
-    CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView
+    CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView
 
 )
+router = DefaultRouter()
+router.register(r'cdm', CDMViewSet, basename='cdm')
 
 urlpatterns = [
     path('conjunctions/', ConjunctionListCreateView.as_view(), name='conjunction-list-create'),
@@ -18,4 +21,6 @@ urlpatterns = [
     path('cdms/<int:pk>/', CDMCalcDetailView.as_view(), name='cdm-detail'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
+    path('refresh/', RefreshTokenView.as_view(), name='refresh_token'),
+    path('', include(router.urls)),
 ]
