@@ -13,7 +13,6 @@ urlpatterns = [
     path('collisions/<int:pk>/', CollisionDetailView.as_view(), name='collision-detail'),
     path('probabilities/', ProbabilityCalcListCreateView.as_view(), name='probability-list-create'),
     path('probabilities/<int:pk>/', ProbabilityCalcDetailView.as_view(), name='probability-detail'),
-    path('cdms/', CDMSerializerListCreateView.as_view(), name='cdm-list-create'),
     path('cdms/<int:pk>/', CDMCalcDetailView.as_view(), name='cdm-detail'),
     path('cdms/create/', CDMCreateView.as_view(), name='cdm-create'),
     path('register/', RegisterView.as_view(), name='register'),
