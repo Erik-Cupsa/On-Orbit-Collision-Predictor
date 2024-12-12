@@ -3,9 +3,9 @@ import Footer from "@/components/footer/page";
 
 export default function Dashboard() {
     return (
-        <div className="min-h-screen flex flex-col bg-gray-100">
+        <div className="flex flex-col h-full bg-white min-h-screen w-screen">
             <Navbar />
-            <main className="container mx-auto p-4 flex-grow">
+            <main className="w-full max-w-[70%] mx-auto p-4 flex-grow">
                 <section className="my-8">
                     <h2 className="text-2xl font-bold mb-4 text-black">Dashboard</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

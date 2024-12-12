@@ -2,18 +2,18 @@ import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-800 p-4 mt-8">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="text-gray-300">
-                    <h4 className="text-white font-bold">Company</h4>
-                </div>
-                <div className="text-gray-300">
-                    <h4 className="text-white font-bold">The Team</h4>
-                    <ul>
-                        <li><Link href="/about" className="hover:text-white">About Us</Link></li>
-                        <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
-                        <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-                    </ul>
+        <footer className="w-full bg-slate-800 ">
+            <div className="py-4 max-w-[70%] m-auto w-full">
+                <div className="flex justify-between items-center gap-10">
+                    <div className="text-gray-300">
+                        <h1 className="text-white font-bold"></h1>
+                    </div>
+                    <div className="flex text-gray-300 gap-4">                
+                        <p><Link href="/about" className="hover:text-white">About Us</Link></p>
+                        <p><Link href="/contact" className="hover:text-white">Contact</Link></p>
+                        <p><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></p>
+                    
+                    </div>
                 </div>
             </div>
         </footer>
