@@ -64,6 +64,14 @@ class CDMCreateView(APIView):
                 "sat1_y_dot": float(data.get("SAT1_Y_DOT", 0)),
                 "sat1_z_dot": float(data.get("SAT1_Z_DOT", 0)),
 
+                "sat1_catalog_name": data.get("SAT1_CATALOG_NAME"),
+                "sat1_object_name": data.get("SAT1_OBJECT_NAME"),
+                "sat1_international_designator": data.get("SAT1_INTERNATIONAL_DESIGNATOR"),
+                "sat1_object_type": data.get("SAT1_OBJECT_TYPE"),
+                "sat1_operator_organization": data.get("SAT1_OPERATOR_ORGANIZATION"),
+                "sat1_covariance_method": data.get("SAT1_COVARIANCE_METHOD"),
+                "sat1_reference_frame": data.get("SAT1_REFERENCE_FRAME"),
+
                 # Covariance matrix for Satellite 1
                 "sat1_cov_rr": float(data.get("SAT1_CR_R", 0)),
                 "sat1_cov_rt": float(data.get("SAT1_CT_R", 0)),
@@ -85,6 +93,14 @@ class CDMCreateView(APIView):
                 "sat2_x_dot": float(data.get("SAT2_X_DOT", 0)),
                 "sat2_y_dot": float(data.get("SAT2_Y_DOT", 0)),
                 "sat2_z_dot": float(data.get("SAT2_Z_DOT", 0)),
+
+                "sat2_catalog_name": data.get("SAT2_CATALOG_NAME"),
+                "sat2_object_name": data.get("SAT2_OBJECT_NAME"),
+                "sat2_international_designator": data.get("SAT2_INTERNATIONAL_DESIGNATOR"),
+                "sat2_object_type": data.get("SAT2_OBJECT_TYPE"),
+                "sat2_operator_organization": data.get("SAT2_OPERATOR_ORGANIZATION"),
+                "sat2_covariance_method": data.get("SAT2_COVARIANCE_METHOD"),
+                "sat2_reference_frame": data.get("SAT2_REFERENCE_FRAME"),
 
                 # Covariance matrix for Satellite 2
                 "sat2_cov_rr": float(data.get("SAT2_CR_R", 0)),

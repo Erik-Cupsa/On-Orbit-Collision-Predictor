@@ -34,6 +34,15 @@ class CDM(models.Model):
     sat1_cov_nt = models.FloatField(null=True, blank=True)  # Covariance nt element
     sat1_cov_nn = models.FloatField(null=True, blank=True)  # Covariance nn element
 
+    # Additional Satellite 1 Details
+    sat1_catalog_name = models.CharField(max_length=100, null=True, blank=True)
+    sat1_object_name = models.CharField(max_length=100, null=True, blank=True)
+    sat1_international_designator = models.CharField(max_length=100, null=True, blank=True)
+    sat1_object_type = models.CharField(max_length=100, null=True, blank=True)
+    sat1_operator_organization = models.CharField(max_length=100, null=True, blank=True)
+    sat1_covariance_method = models.CharField(max_length=100, null=True, blank=True)
+    sat1_reference_frame = models.CharField(max_length=100, null=True, blank=True)
+
     # Satellite 2 Details
     sat2_object = models.CharField(max_length=50)
     sat2_object_designator = models.CharField(max_length=50)
@@ -44,6 +53,15 @@ class CDM(models.Model):
     sat2_x_dot = models.FloatField()  # X velocity
     sat2_y_dot = models.FloatField()  # Y velocity
     sat2_z_dot = models.FloatField()  # Z velocity
+
+    # Additional Satellite 2 Details
+    sat2_catalog_name = models.CharField(max_length=100, null=True, blank=True)
+    sat2_object_name = models.CharField(max_length=100, null=True, blank=True)
+    sat2_international_designator = models.CharField(max_length=100, null=True, blank=True)
+    sat2_object_type = models.CharField(max_length=100, null=True, blank=True)
+    sat2_operator_organization = models.CharField(max_length=100, null=True, blank=True)
+    sat2_covariance_method = models.CharField(max_length=100, null=True, blank=True)
+    sat2_reference_frame = models.CharField(max_length=100, null=True, blank=True)
 
     # Covariance matrix elements for Satellite 2
     sat2_cov_rr = models.FloatField(null=True, blank=True)  # Covariance rr element
