@@ -38,7 +38,7 @@ class CDMViewSet(viewsets.ModelViewSet):
         return CDM.objects.none()
 
 class CDMCreateView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser] # this does what u wanted where only admin can create
 
     def post(self, request, *args, **kwargs):
         data = request.data
