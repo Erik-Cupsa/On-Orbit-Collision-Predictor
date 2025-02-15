@@ -122,12 +122,13 @@ class CDMCreateView(APIView):
                 "privacy": data.get("privacy", False)
             }
         )
+        action = "Created" if created else "Updated"
+
+        # do we only want collision + email sending when the CDM data is new?
 
         collision = Collision.create_from_cdm(cdm)
 
-        # TODO : implement a probability of collision threshold based off the user's organization / preferences
-
-        action = "Created" if created else "Updated"
+        # TODO : implement sending probability of collision threshold based off the user's organization / preferences
 
         subject = f"On-Orbit Collision Predictor Notification for Collision: {cdm.message_id}"
         message = (
@@ -144,4 +145,13 @@ class CDMCreateView(APIView):
         recipient_list = ["wasif.somji@mail.mcgill.ca", "swerikcode@gmail.com"]  
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
-        return Response({"message": f"{action} CDM entry with MESSAGE_ID: {cdm.message_id}"}, status=status.HTTP_201_CREATED)
+        if created:
+            return Response(
+                {"message": f"Created CDM entry with MESSAGE_ID: {cdm.message_id}"},
+                status=status.HTTP_201_CREATED
+            )
+        else:
+            return Response(
+                {"message": f"Updated CDM entry with MESSAGE_ID: {cdm.message_id}"},
+                status=status.HTTP_200_OK
+            )
