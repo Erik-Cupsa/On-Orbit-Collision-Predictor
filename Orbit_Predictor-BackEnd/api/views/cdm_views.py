@@ -2,6 +2,9 @@ from rest_framework import generics, viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
+from django.core.mail import send_mail
+from django.conf import settings
+
 from ..models import CDM
 from ..models import Collision
 from ..serializers import CDMSerializer
@@ -119,6 +122,36 @@ class CDMCreateView(APIView):
                 "privacy": data.get("privacy", False)
             }
         )
-        Collision.create_from_cdm(cdm)
         action = "Created" if created else "Updated"
-        return Response({"message": f"{action} CDM entry with MESSAGE_ID: {cdm.message_id}"}, status=status.HTTP_201_CREATED)
+
+        # do we only want collision + email sending when the CDM data is new?
+
+        collision = Collision.create_from_cdm(cdm)
+
+        # TODO : implement sending probability of collision threshold based off the user's organization / preferences
+
+        subject = f"On-Orbit Collision Predictor Notification for Collision: {cdm.message_id}"
+        message = (
+            f"{action} CDM entry with the following details:\n"
+            f"A new collision was created with the following details:\n"
+            f"Message ID: {cdm.message_id}\n"
+            f"TCA: {cdm.tca}\n"
+            f"Miss Distance: {cdm.miss_distance}\n"
+            f"Collision ID: {collision.id}\n"
+            f"Probability of Collision: {collision.probability_of_collision}\n"
+        )
+        from_email = settings.EMAIL_HOST_USER
+        # Replace with your conf  igured recipient(s). This could be dynamic.
+        recipient_list = ["wasif.somji@mail.mcgill.ca", "swerikcode@gmail.com"]  
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
+        if created:
+            return Response(
+                {"message": f"Created CDM entry with MESSAGE_ID: {cdm.message_id}"},
+                status=status.HTTP_201_CREATED
+            )
+        else:
+            return Response(
+                {"message": f"Updated CDM entry with MESSAGE_ID: {cdm.message_id}"},
+                status=status.HTTP_200_OK
+            )
