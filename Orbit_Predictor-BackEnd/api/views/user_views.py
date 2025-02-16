@@ -1,10 +1,14 @@
-# api/views.py
 
 from rest_framework import generics, status, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from ..permissions import IsAdmin, IsCollisionAnalyst, IsUser, CanViewCDM
-from ..serializers import UserSerializer, LoginSerializer, CDMSerializer, RefreshTokenSerializer
+from ..serializers import (
+    UserSerializer, 
+    LoginSerializer, 
+    CDMSerializer, 
+    RefreshTokenSerializer
+)
 from ..models import User, CDM
 
 class RegisterView(generics.CreateAPIView):
@@ -65,3 +69,37 @@ class CDMViewSet(viewsets.ModelViewSet):
         elif user.role == 'user':
             return CDM.objects.filter(privacy=True)
         return CDM.objects.none()
+
+
+# NEW: UserViewSet
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    Allows admins to view/update all users, and normal users to view/update only themselves.
+    """
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff or user.role == 'admin':
+            return User.objects.all()
+        # Otherwise, normal user sees only themselves
+        if self.action == 'list':
+            # either show themselves in the list, or deny listing
+            return User.objects.filter(id=user.id)
+        return User.objects.filter(id=user.id)
+
+    def update(self, request, *args, **kwargs):
+        # Non-admin user can only update their own record
+        if not (request.user.is_staff or request.user.role == 'admin'):
+            if kwargs.get('pk') != str(request.user.id):
+                return Response({'detail': 'Not allowed to update other users.'}, status=403)
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        # Non-admin user can only partial update their own record
+        if not (request.user.is_staff or request.user.role == 'admin'):
+            if kwargs.get('pk') != str(request.user.id):
+                return Response({'detail': 'Not allowed to update other users.'}, status=403)
+        return super().partial_update(request, *args, **kwargs)
