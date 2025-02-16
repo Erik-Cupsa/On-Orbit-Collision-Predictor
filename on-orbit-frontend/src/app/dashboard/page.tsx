@@ -3,40 +3,29 @@
 import Navbar from "@/components/navbar/page";
 import Footer from "@/components/footer/page";
 import { useEffect, useState } from "react";
+import { fetchCdms } from "@/lib/api";
 
 interface CDM {
     id: number;
     sat1_object_designator: string;
     sat2_object_designator: string;
-    tca: string;
+    tca: string;  // Time of Closest Approach
     miss_distance: number;
-    probability_of_collision?: number;
+    probability_of_collision: number;
 }
 
 export default function Dashboard() {
-
     const [cdms, setCdms] = useState<CDM[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        async function fetchCdms() {
-            try {
-                const response = await fetch("/api/cdms");
-
-                if (!response.ok) {
-                    throw new Error(`HTTP Error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setCdms(data);
-            } catch (error) {
-                console.error("Failed to fetch CDMs:", error);
-            } finally {
-                setLoading(false);
-            }
+        async function getCdms() {
+            setLoading(true);
+            const data = await fetchCdms();
+            setCdms(data);
+            setLoading(false);
         }
-
-        fetchCdms();
+        getCdms();
     }, []);
     
     return (
