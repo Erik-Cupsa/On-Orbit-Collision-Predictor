@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',  # Added for filtering
+    'corsheaders',     # Added for handling CORS
     'api',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Must be placed near the top
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -112,26 +114,9 @@ REST_FRAMEWORK = {
 
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 JWT_ACCESS_EXPIRATION_DELTA = datetime.timedelta(hours=24)  # Access token valid for 24 hours
-JWT_REFRESH_EXPIRATION_DELTA = datetime.timedelta(days=7)  # Refresh token valid for 7 days
+JWT_REFRESH_EXPIRATION_DELTA = datetime.timedelta(days=7)    # Refresh token valid for 7 days
 
 AUTH_USER_MODEL = 'api.User'
-
-
-# # Password validation
-# AUTH_PASSWORD_VALIDATORS = [
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-#     },
-# ]
 
 
 # Internationalization
@@ -152,8 +137,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
+# CORS configuration: Allow requests from http://localhost:3000
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+# Alternatively, for development purposes you could use:
+# CORS_ALLOW_ALL_ORIGINS = True
