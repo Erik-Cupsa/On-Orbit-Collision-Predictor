@@ -1,87 +1,102 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
+
+import { Viewer, Entity } from "cesium";
+import * as Cesium from "cesium";
 
 interface CDM {
     id: number;
     sat1_object_designator: string;
     sat2_object_designator: string;
-    tca: string;
-    miss_distance: number;
 }
 
 interface TLEData {
-    name: string;
-    line1: string;
-    line2: string;
+    sat1: string;
+    sat2: string;
 }
 
-export default function CesiumView(){
-    const router = useRouter();
-    const { id } = router.query; // Get ID from URL
+const CesiumView = () => {
+    const { id } = useParams();
     const [cdm, setCdm] = useState<CDM | null>(null);
-    const [tleSat1, setTleSat1] = useState<TLEData | null>(null);
-    const [tleSat2, setTleSat2] = useState<TLEData | null>(null);
+    const [tleData, setTleData] = useState<TLEData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!id) return;
-
-        // Fetch CDM Data from Backend
-        const fetchCDM = async () => {
+        const fetchCdmAndTleData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/cdms/${id}/`);
-                if (!response.ok) throw new Error("Failed to fetch CDM data");
-                const data: CDM = await response.json();
-                setCdm(data);
+                // Use a hardcoded access token for now
+                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzM5OTEzMjU0LCJpYXQiOjE3Mzk4MjY4NTR9.f8-v5GLOtkFItNPwE6k6ojTia2kJI5oAN8BRA4iI2DU";
+        
+                const headers = {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                };
 
-                // Fetch TLE data for both satellites
-                fetchTLE(data.sat1_object_designator, setTleSat1);
-                fetchTLE(data.sat2_object_designator, setTleSat2);
-            } catch (error) {
-                console.error("Error fetching CDM:", error);
+                // Fetch CDM details
+                const cdmResponse = await fetch(`http://localhost:8000/api/cdms/${id}/`, { headers });
+                if (!cdmResponse.ok) throw new Error("Failed to fetch CDM details.");
+                const cdmData: CDM = await cdmResponse.json();
+                setCdm(cdmData);
+
+
+                // Fetch TLE Data for both satellites from CelesTrak
+                const tleSat1 = await fetchTleFromCelesTrak(cdmData.sat1_object_designator);
+                const tleSat2 = await fetchTleFromCelesTrak(cdmData.sat2_object_designator);
+
+                if (!tleSat1 || !tleSat2) throw new Error("Failed to fetch TLE data.");
+
+                setTleData({ sat1: tleSat1, sat2: tleSat2 });
+
+            } catch (err) {
+                if (err instanceof Error) setError(err.message);
+                else setError("An unknown error occurred.");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchCDM();
+        fetchCdmAndTleData();
     }, [id]);
 
-    const fetchTLE = async (satelliteId: string, setTle: (tle: TLEData) => void) => {
-        try {
-            const response = await fetch(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${satelliteId}&FORMAT=TLE`);
-            if (!response.ok) throw new Error(`Failed to fetch TLE for ${satelliteId}`);
-            const textData = await response.text();
-            const tleLines = textData.split("\n").map(line => line.trim());
-
-            if (tleLines.length >= 3) {
-                setTle({
-                    name: tleLines[0],
-                    line1: tleLines[1],
-                    line2: tleLines[2],
-                });
-            }
-        } catch (error) {
-            console.error(`Error fetching TLE for ${satelliteId}:`, error);
-        }
-    };
-
-    if (loading) return <div>Loading CDM & TLE data...</div>;
-    if (!cdm) return <div>CDM not found.</div>;
+    if (loading) return <div className="min-h-screen w-screen flex justify-center items-center"><p>Loading...</p></div>;
+    if (error) return <p className="text-red-500">{error}</p>;
+    if (!cdm || !tleData) return <p>No data available.</p>;
 
     return (
-        <div>
-            <h1>Cesium View for CDM {cdm.id}</h1>
-            <p>Satellite 1: {cdm.sat1_object_designator}</p>
-            <p>Satellite 2: {cdm.sat2_object_designator}</p>
+        <div className="min-h-screen p-8">
+            <h1 className="text-2xl font-bold mb-4">TLE Data for CDM ID: {id}</h1>
+            
+            <div className="mb-4">
+                <h2 className="text-xl font-semibold">Satellite A ({cdm.sat1_object_designator})</h2>
+                <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat1.join("\n")}</pre>
+            </div>
 
-            <h2>TLE Data:</h2>
-            <pre>{tleSat1 ? `${tleSat1.name}\n${tleSat1.line1}\n${tleSat1.line2}` : "Loading TLE for Sat 1..."}</pre>
-            <pre>{tleSat2 ? `${tleSat2.name}\n${tleSat2.line1}\n${tleSat2.line2}` : "Loading TLE for Sat 2..."}</pre>
-
-            {/* ✅ NEXT STEP: Pass TLE to a Cesium Component */}
+            <div>
+                <h2 className="text-xl font-semibold">Satellite B ({cdm.sat2_object_designator})</h2>
+                <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat2.join("\n")}</pre>
+            </div>
         </div>
     );
-}
+};
+
+
+// ✅ Fetch TLE Data from CelesTrak API
+const fetchTleFromCelesTrak = async (satelliteId: string): Promise<string[] | null> => {
+    try {
+        const response = await fetch(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${satelliteId}&FORMAT=TLE`);
+        if (!response.ok) throw new Error(`Failed to fetch TLE for satellite ${satelliteId}`);
+
+        const tleText = await response.text();
+        const tleLines = tleText.split("\n").filter(line => line.trim() !== "");
+
+        return tleLines.length >= 2 ? tleLines.slice(0, 2) : null;
+    } catch (error) {
+        console.error("Error fetching TLE:", error);
+        return null;
+    }
+};
+
+export default CesiumView;
