@@ -1,12 +1,15 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .views import (
-    CollisionListCreateView, CollisionDetailView,
+    CollisionListCreateView, CollisionDetailView, UserViewSet,
     ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
-    CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView
+    CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView, OrganizationViewSet
 )
+
 router = DefaultRouter()
 router.register(r'cdms', CDMViewSet, basename='cdm')
+router.register(r'organizations', OrganizationViewSet, basename='organization')
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
     path('collisions/', CollisionListCreateView.as_view(), name='collision-list-create'),

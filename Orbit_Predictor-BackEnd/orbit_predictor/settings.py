@@ -92,7 +92,7 @@ DATABASES = {
 }
 
 
-ADMIN_REGISTRATION_CODE = os.getenv('ADMIN_REGISTRATION_CODE', 'default_admin_code')
+ADMIN_REGISTRATION_CODE = os.getenv('ADMIN_REGISTRATION_CODE')
 
 # REST Framework Configuration
 REST_FRAMEWORK = {

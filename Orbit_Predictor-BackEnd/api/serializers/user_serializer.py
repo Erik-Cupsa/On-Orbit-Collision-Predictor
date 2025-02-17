@@ -1,19 +1,34 @@
 # api/serializers.py
 
-from rest_framework import serializers
-from ..models import User, CDM
 import jwt
 import datetime
 from django.conf import settings
+from rest_framework import serializers
 
+from ..models import User, CDM
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     registration_code = serializers.CharField(write_only=True, required=False, allow_blank=True)
+    
+    # NEW: Allow setting 'interested_cdms' by passing a list of CDM IDs
+    interested_cdms = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=CDM.objects.all(),
+        required=False
+    )
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'role', 'registration_code', 'created_at']
+        fields = [
+            'id', 
+            'email', 
+            'password', 
+            'role', 
+            'registration_code', 
+            'created_at',
+            'interested_cdms'   # NEW FIELD
+        ]
         read_only_fields = ['id', 'created_at']
 
     def validate_registration_code(self, value):
@@ -31,7 +46,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         # Determine role based on email domain and registration code
         role = 'user'  # Default role
-
         if domain == 'asc-csa.gc.ca':
             if registration_code:
                 role = 'admin'
@@ -39,9 +53,33 @@ class UserSerializer(serializers.ModelSerializer):
                 role = 'collision_analyst'
 
         validated_data['role'] = role
+
+        # Extract password separately
         password = validated_data.pop('password')
+        
+        # Extract any CDM IDs passed in
+        interested_cdms = validated_data.pop('interested_cdms', [])
+
         user = User.objects.create_user(password=password, **validated_data)
+
+        # If the user provided interested CDMs during registration, set them
+        if interested_cdms:
+            user.interested_cdms.set(interested_cdms)
+
         return user
+
+    def update(self, instance, validated_data):
+        # Handle interested_cdms updates
+        interested_cdms = validated_data.pop('interested_cdms', None)
+        if interested_cdms is not None:
+            instance.interested_cdms.set(interested_cdms)
+
+        # Handle password updates (if provided)
+        password = validated_data.pop('password', None)
+        if password:
+            instance.set_password(password)
+
+        return super().update(instance, validated_data)
 
 
 class LoginSerializer(serializers.Serializer):
@@ -135,7 +173,7 @@ class CDMSerializer(serializers.ModelSerializer):
             'privacy',
             'tca',
             'miss_distance',
-            # Satellite 1 Details
+            # Satellite 1
             'sat1_object',
             'sat1_object_designator',
             'sat1_maneuverable',
@@ -154,7 +192,7 @@ class CDMSerializer(serializers.ModelSerializer):
             'sat1_cov_nr',
             'sat1_cov_nt',
             'sat1_cov_nn',
-            # Satellite 2 Details
+            # Satellite 2
             'sat2_object',
             'sat2_object_designator',
             'sat2_maneuverable',
