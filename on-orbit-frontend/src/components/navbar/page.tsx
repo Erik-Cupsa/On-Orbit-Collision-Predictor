@@ -12,7 +12,7 @@ export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
     return (
-        <nav className="w-full bg-background border-b-[3px] border-gray-700">
+        <nav className="w-full bg-background border-b-[3px] border-gray-700 h-[100px]">
             <div className='w-full flex justify-between items-center max-w-[70%] mx-auto py-6'>
                 <Link href="/" className="flex items-center gap-4">
                     <div className='flex items-center justify-center gap-2'>
