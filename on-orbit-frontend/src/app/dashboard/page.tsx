@@ -41,7 +41,7 @@ export default function Dashboard() {
     const fetchCDMs = async () => {
         try {
             // Use a hardcoded access token for now
-            const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzM5OTEzMjU0LCJpYXQiOjE3Mzk4MjY4NTR9.f8-v5GLOtkFItNPwE6k6ojTia2kJI5oAN8BRA4iI2DU";
+            const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDE2ODY2LCJpYXQiOjE3NDAzMzA0NjZ9.zN3fqc36BrHD0FOreVLRbNACsoLlINQ0P4sGHGkpcL4";
     
             const headers = {
                 "Content-Type": "application/json",

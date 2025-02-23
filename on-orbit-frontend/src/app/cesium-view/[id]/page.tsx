@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-import { Viewer, Entity } from "cesium";
-import * as Cesium from "cesium";
+// import { Viewer, Entity } from "cesium";
+// import * as Cesium from "cesium";
+import Navbar from "@/components/navbar/page";
+import Footer from "@/components/footer/page";
 
 interface CDM {
     id: number;
@@ -28,7 +30,7 @@ const CesiumView = () => {
         const fetchCdmAndTleData = async () => {
             try {
                 // Use a hardcoded access token for now
-                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzM5OTEzMjU0LCJpYXQiOjE3Mzk4MjY4NTR9.f8-v5GLOtkFItNPwE6k6ojTia2kJI5oAN8BRA4iI2DU";
+                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDE2ODY2LCJpYXQiOjE3NDAzMzA0NjZ9.zN3fqc36BrHD0FOreVLRbNACsoLlINQ0P4sGHGkpcL4";
         
                 const headers = {
                     "Content-Type": "application/json",
@@ -66,18 +68,22 @@ const CesiumView = () => {
     if (!cdm || !tleData) return <p>No data available.</p>;
 
     return (
-        <div className="min-h-screen p-8">
-            <h1 className="text-2xl font-bold mb-4">TLE Data for CDM ID: {id}</h1>
-            
-            <div className="mb-4">
-                <h2 className="text-xl font-semibold">Satellite A ({cdm.sat1_object_designator})</h2>
-                <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat1.join("\n")}</pre>
-            </div>
+        <div className="flex flex-col min-h-screen w-screen">
+            <Navbar/>
+            <div className="flex h-[calc(100svh-160px)] max-w-[80%] flex-col w-full mx-auto p-4">
+                <h1 className="text-2xl font-bold mb-4">TLE Data for CDM ID: {id}</h1>
+                
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Satellite A ({cdm.sat1_object_designator})</h2>
+                    <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat1.join("\n")}</pre>
+                </div>
 
-            <div>
-                <h2 className="text-xl font-semibold">Satellite B ({cdm.sat2_object_designator})</h2>
-                <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat2.join("\n")}</pre>
+                <div>
+                    <h2 className="text-xl font-semibold">Satellite B ({cdm.sat2_object_designator})</h2>
+                    <pre className="bg-gray-200 p-4 rounded-md">{tleData.sat2.join("\n")}</pre>
+                </div>
             </div>
+            <Footer/>
         </div>
     );
 };
