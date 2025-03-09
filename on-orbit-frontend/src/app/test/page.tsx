@@ -134,7 +134,7 @@ export default function TestPage() {
     return (
         <div className="w-screen h-screen">
             <Navbar/>
-            <div ref={cesiumRef} className="w-full h-[calc(100svh-160px)]"/>
+            <div ref={cesiumRef} className="w-full h-[calc(100svh-140px)]"/>
             <Footer/>
         </div>
     );

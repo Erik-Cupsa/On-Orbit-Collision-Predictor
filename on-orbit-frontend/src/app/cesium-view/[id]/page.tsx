@@ -30,7 +30,7 @@ const CesiumView = () => {
         const fetchCdmAndTleData = async () => {
             try {
                 // Use a hardcoded access token for now
-                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDE2ODY2LCJpYXQiOjE3NDAzMzA0NjZ9.zN3fqc36BrHD0FOreVLRbNACsoLlINQ0P4sGHGkpcL4";
+                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDk1ODAxLCJpYXQiOjE3NDA0MDk0MDF9.LWSKrVR8ig9ORGEqMnM1_7PAemjWVCjQE-gGATPK0Mk";
         
                 const headers = {
                     "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const CesiumView = () => {
     return (
         <div className="flex flex-col min-h-screen w-screen">
             <Navbar/>
-            <div className="flex h-[calc(100svh-160px)] max-w-[80%] flex-col w-full mx-auto p-4">
+            <div className="flex h-[calc(100svh-140px)] max-w-[80%] flex-col w-full mx-auto p-4">
                 <h1 className="text-2xl font-bold mb-4">TLE Data for CDM ID: {id}</h1>
                 
                 <div className="mb-4">

@@ -41,7 +41,7 @@ export default function Dashboard() {
     const fetchCDMs = async () => {
         try {
             // Use a hardcoded access token for now
-            const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDE2ODY2LCJpYXQiOjE3NDAzMzA0NjZ9.zN3fqc36BrHD0FOreVLRbNACsoLlINQ0P4sGHGkpcL4";
+            const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjMzNzU5ZDUtODMxMC00NzJhLTk2NWMtNGYzNmYwMmQzZTVlIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQwNDk1ODAxLCJpYXQiOjE3NDA0MDk0MDF9.LWSKrVR8ig9ORGEqMnM1_7PAemjWVCjQE-gGATPK0Mk";
     
             const headers = {
                 "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export default function Dashboard() {
     return (
         <div className="flex flex-col h-full bg-white min-h-screen w-screen">
             <Navbar />
-            <div className="flex min-h-[calc(100svh-160px)] max-w-[80%] flex-col w-full mx-auto p-4">
+            <div className="flex min-h-[calc(100svh-140px)] max-w-[80%] flex-col w-full mx-auto p-4">
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-2xl font-bold">Conjunction Data Messages (CDMs)</h1>
                     <input
