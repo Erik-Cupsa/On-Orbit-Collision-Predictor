@@ -30,7 +30,6 @@ export default function Login() {
             }
 
             const data = await response.json();
-            console.log('Login successful:', data);
 
             localStorage.setItem('token', data.access_token);
             

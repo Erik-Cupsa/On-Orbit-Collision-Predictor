@@ -43,8 +43,6 @@ export default function Dashboard() {
             // Use a hardcoded access token for now
             const accessToken = localStorage.getItem('token');
 
-            console.log('accessToken', accessToken);
-
             const headers = {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
