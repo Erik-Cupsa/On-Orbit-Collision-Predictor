@@ -9,14 +9,39 @@ import Csa from '@/components/csa/csa';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
+        setError(null);
 
-        router.push('/dashboard');
+        try {
+            const response = await fetch('http://localhost:8000/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+            console.log('Login successful:', data);
+
+            localStorage.setItem('token', data.access_token);
+            
+            router.push('/dashboard');
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unknown error occurred.');
+            }
+        }
     };
 
     return (
