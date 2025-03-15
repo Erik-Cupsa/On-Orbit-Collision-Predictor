@@ -2,14 +2,29 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import csaLogo from "@/assets/csa.png";
 import mcgillLogo from "@/assets/mcgill.png";
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     // we want to set this to true when session headers are present (user is logged in)
     const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+        router.push('/');
+    };
 
     return (
         <nav className="w-full bg-background border-b-[3px] border-gray-700 h-[100px]">
@@ -23,16 +38,20 @@ export default function Navbar() {
                         <p>On Orbit Collision Predictor</p>
                         <p>Prédiction des Collisions en Orbite</p>
                     </div>
-                    
                 </Link>
                 <div className="flex items-center gap-2">
                     <Link href="/" className="text-black btn font-light btn-ghost">Home</Link>
                     <Link href="/about" className="text-black btn font-light btn-ghost">About</Link>
-                    {!isLoggedIn && (
-                        <Link href="/login" className="btn bg-gray-700 hover:bg-gray-800 px-10 text-white font-light border-none">Login</Link>
-                    )}
-                    {!isLoggedIn && (
-                        <Link href="/signup" className="btn border hover:bg-gray-200 hover:border-gray-200 px-10 bg-white text-black font-light ">Sign Up</Link>
+                    {isLoggedIn ? (
+                        <>
+                            <Link href="/dashboard" className="text-black btn font-light btn-ghost">Dashboard</Link>
+                            <button onClick={handleLogout} className="text-black btn font-light btn-ghost">Logout</button>
+                        </>
+                    ) : (
+                        <div>
+                            <Link href="/login" className="text-black btn font-light btn-ghost">Login</Link>
+                            <Link href="/signup" className="text-black btn font-light btn-ghost">Sign Up</Link>
+                        </div>
                     )}
                 </div>
             </div>
