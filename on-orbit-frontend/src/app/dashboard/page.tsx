@@ -40,8 +40,10 @@ export default function Dashboard() {
 
     const fetchCDMs = async () => {
         try {
-            // Use a hardcoded access token for now
             const accessToken = localStorage.getItem('token');
+            if (!accessToken) {
+                throw new Error("Failed to fetch CDMs: Please login to view this page")
+            }
 
             const headers = {
                 "Content-Type": "application/json",
