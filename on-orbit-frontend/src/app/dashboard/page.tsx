@@ -3,6 +3,7 @@
 import Navbar from "@/components/navbar/page";
 import Footer from "@/components/footer/page";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CDM {
     id: number;
@@ -26,6 +27,8 @@ export default function Dashboard() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState<string>("");
+
+    const router = useRouter();
 
     // Sort by most recent TCA and limit to 20 results
     const sortedCdms = [...cdms]
@@ -53,7 +56,11 @@ export default function Dashboard() {
             // Fetch CDMs
             const response = await fetch("http://localhost:8000/api/cdms/", { headers });
             if (!response.ok) {
-                if (response.status === 401) throw new Error("Unauthorized: Invalid or expired token");
+                if (response.status === 401) { 
+                    localStorage.removeItem('token');
+                    router.push('/login');
+                    return;
+                }
                 throw new Error("Failed to fetch CDMs");
             }
             const cdmData: CDM[] = await response.json();
