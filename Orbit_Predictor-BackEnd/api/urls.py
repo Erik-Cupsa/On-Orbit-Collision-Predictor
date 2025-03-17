@@ -2,8 +2,9 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .views import (
     CollisionListCreateView, CollisionDetailView, CollisionAvoidanceView, UserViewSet,
-    ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
-    CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView, OrganizationViewSet
+    ProbabilityCalcListCreateView, ProbabilityCalcDetailView, CDMSerializerListCreateView, 
+    CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView, 
+    OrganizationViewSet, CollisionTradespaceView
 )
 
 router = DefaultRouter()
@@ -19,6 +20,7 @@ urlpatterns = [
     path('collisions/avoidance/', CollisionAvoidanceView.as_view(), name='collision-avoidance'),
     path('cdms/<int:pk>/', CDMCalcDetailView.as_view(), name='cdm-detail'),
     path('cdms/create/', CDMCreateView.as_view(), name='cdm-create'),
+    path('tradespace/', CollisionTradespaceView.as_view(), name='collision-tradespace'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('refresh/', RefreshTokenView.as_view(), name='refresh_token'),
