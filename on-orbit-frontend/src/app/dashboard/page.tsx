@@ -40,12 +40,11 @@ export default function Dashboard() {
         cdm.id.toString().includes(searchTerm)
     );
 
-
     const fetchCDMs = async () => {
         try {
             const accessToken = localStorage.getItem('token');
             if (!accessToken) {
-                throw new Error("Failed to fetch CDMs: Please login to view this page")
+                throw new Error("Failed to fetch CDMs: Please login to view this page");
             }
 
             const headers = {
@@ -129,6 +128,7 @@ export default function Dashboard() {
                                 <th className="border p-2 w-32">Miss Distance (km)</th>
                                 <th className="border p-2 w-40">Collision Probability (%)</th>
                                 <th className="border p-2 w-28">View in Cesium</th>
+                                <th className="border p-2 w-28">Maneuvering</th>
                             </tr>
                         </thead>
                     </table>
@@ -154,11 +154,16 @@ export default function Dashboard() {
                                                     View
                                                 </a>
                                             </td>
+                                            <td className="border p-2 w-28 text-[#0000EE]">
+                                                <a href={`/maneuvering/${cdm.id}`} target="_blank" rel="noopener noreferrer" className="flex gap-1 items-center">
+                                                    Maneuver
+                                                </a>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={7} className="text-center p-4">No CDM data available.</td>
+                                        <td colSpan={8} className="text-center p-4">No CDM data available.</td>
                                     </tr>
                                 )}
                             </tbody>
