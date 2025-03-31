@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/navbar/page';
 import Footer from '@/components/footer/page';
 import Csa from '@/components/csa/csa';
 
@@ -46,12 +45,11 @@ export default function Login() {
     return (
 
         <div className="flex flex-col w-screen h-screen">
-            <Navbar />
             <div className='w-full max-w-md m-auto flex flex-col gap-8'>
-                <h1 className='text-6xl font-medium text-gray-700'>Login</h1>
+                <h1 className='font-extrabold sm:text-[54px] text-[36px] sm:leading-[64px] leading-[46px] text-black'>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
+                        <label className="block text-black text-[16px] font-medium mb-2" htmlFor="email">
                             Email
                         </label>
                         <input
@@ -64,7 +62,7 @@ export default function Login() {
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
+                        <label className="block text-black text-[16px] font-medium mb-2" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -79,14 +77,14 @@ export default function Login() {
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-green-900 hover:bg-green-950 text-white font-light py-3 px-6 rounded-md text-xl focus:outline-none focus:shadow-outline"
+                            className="bg-primary hover:bg-[#473198] text-white font-medium py-3 px-6 rounded-md text-[16px] focus:outline-none focus:shadow-outline"
                         >
                             Login
                         </button>
                     </div>
                 </form>
             </div>
-            <Csa />
+            {/* <Csa /> */}
             <Footer />
         </div>
     );
