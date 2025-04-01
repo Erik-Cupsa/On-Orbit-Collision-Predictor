@@ -18,13 +18,10 @@ class CollisionTradespaceView(APIView):
       Rmiss = RRel - ((RRel · VRel)/||VRel||²)*VRel
 
     Only Satellite 1 is maneuvered. The view returns:
-      - "original": The original (baseline) collision probability, miss distance, and satellite states.
-      - "best_maneuver": The overall best maneuver result.
-      - "heatmap_data": A list of objects for each combination of T and Δv, where each object includes:
-            "T_hours": time before TCA,
-            "dv": Δv,
-            "miss_distance": computed miss distance,
-            "pc": computed collision probability.
+      - The original collision probability, miss distance, and satellite states.
+      - The best overall maneuver result.
+      - A "trajectory" list showing, for each time value T (from 24 hr down to 0),
+        the best Δv and the resulting miss distance and collision probability.
       
     No orbital propagation is performed.
     """
@@ -111,7 +108,7 @@ class CollisionTradespaceView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
         Va_hat = Va / Va_norm
 
-        # Initialize overall best maneuver result and heatmap data list.
+        # Initialize overall best maneuver result
         best_result = {
             "T_hours_before_TCA": None,
             "delta_v_m_s": None,
@@ -120,10 +117,19 @@ class CollisionTradespaceView(APIView):
             "sat1_final_position": None,
             "sat1_final_velocity": None
         }
-        heatmap_data = []  # Each element: { "T_hours": T, "dv": dv, "miss_distance": ..., "pc": ... }
+        # Also record the trajectory (process) over time:
+        trajectory = []  # each element: {"T": ..., "best_delta_v": ..., "miss_distance": ..., "pc_value": ...}
 
-        # Loop over time values and Δv values
+        # Loop over time values. For each T, find the best dv.
         for T in time_values:
+            best_for_T = {
+                "delta_v_m_s": None,
+                "pc_value": np.inf,
+                "miss_distance": None,
+                "sat1_position": None,
+                "sat1_velocity": None,
+                "T_hours_before_TCA": float(T)
+            }
             for dv in dv_values:
                 # Apply direct equations:
                 # New velocity: +Va = Va + Δv * Va_hat
@@ -131,7 +137,7 @@ class CollisionTradespaceView(APIView):
                 # New position: +Ra = Ra - 3 * Δv * T * (+Va)
                 Ra_plus = Ra - 3.0 * dv * T * Va_plus
 
-                # Compute new relative state (Satellite 2 unchanged)
+                # New relative state (Satellite 2 unchanged)
                 RRel = Rd - Ra_plus
                 VRel = Vd - Va_plus
 
@@ -147,24 +153,22 @@ class CollisionTradespaceView(APIView):
                 # Compute collision probability via MATLAB
                 pc_value = compute_pc(Ra_plus, Va_plus)
 
-                # Record the result in the heatmap_data
-                heatmap_data.append({
-                    "T_hours": float(T),
-                    "dv": float(dv),
-                    "miss_distance": float(miss_distance),
-                    "pc": float(pc_value)
-                })
-
-                # Update overall best maneuver if this combination is better
-                if pc_value < best_result["pc_value"]:
-                    best_result = {
+                # Check if this dv gives a lower Pc for this T
+                if pc_value < best_for_T["pc_value"]:
+                    best_for_T = {
                         "T_hours_before_TCA": float(T),
                         "delta_v_m_s": float(dv),
                         "pc_value": float(pc_value),
                         "miss_distance": float(miss_distance),
-                        "sat1_final_position": Ra_plus.tolist(),
-                        "sat1_final_velocity": Va_plus.tolist()
+                        "sat1_position": Ra_plus.tolist(),
+                        "sat1_velocity": Va_plus.tolist()
                     }
+            # Record the best outcome for this T in the trajectory
+            trajectory.append(best_for_T)
+
+            # Also update the overall best maneuver if this T yields a lower Pc
+            if best_for_T["pc_value"] < best_result["pc_value"]:
+                best_result = best_for_T
 
         eng.quit()
 
@@ -178,7 +182,7 @@ class CollisionTradespaceView(APIView):
                 "pc_value": float(original_pc)
             },
             "best_maneuver": best_result,
-            "heatmap_data": heatmap_data
+            "trajectory": trajectory
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
