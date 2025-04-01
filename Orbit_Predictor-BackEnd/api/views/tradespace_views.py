@@ -129,7 +129,7 @@ class CollisionTradespaceView(APIView):
                 # New velocity: +Va = Va + Δv * Va_hat
                 Va_plus = Va + dv * Va_hat
                 # New position: +Ra = Ra - 3 * Δv * T * (+Va)
-                Ra_plus = Ra - 3.0 * dv * T * Va_plus
+                Ra_plus = Ra - 3.0 * dv * T * 3600 * Va_plus
 
                 # Compute new relative state (Satellite 2 unchanged)
                 RRel = Rd - Ra_plus
