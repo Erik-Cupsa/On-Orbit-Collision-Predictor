@@ -1,6 +1,5 @@
 "use client"
 
-import Navbar from "@/components/navbar/page";
 import Footer from "@/components/footer/page";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -100,7 +99,6 @@ export default function Dashboard() {
     
     return (
         <div className="flex flex-col h-full bg-white min-h-screen w-screen">
-            <Navbar />
             <div className="flex min-h-[calc(100svh-160px)] max-w-[80%] flex-col w-full mx-auto p-4">
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-2xl font-bold">Conjunction Data Messages (CDMs)</h1>
