@@ -227,8 +227,8 @@ export default function Dashboard() {
                             <div className="w-28 p-2 text-[#0000EE]">
                                 <a
                                 href={`/cesium-view/${cdm.id}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                // target="_blank"
+                                // rel="noopener noreferrer"
                                 className="flex gap-1 items-center"
                                 >
                                 <svg
@@ -269,7 +269,7 @@ export default function Dashboard() {
                     </div>
                     
                     {/* Miss Distance Over Time Chart */}
-                    <div className="w-full h-[290px] relative">
+                    <div className="w-full h-[350px] relative">
                         {loading ? (
                             <div className="flex items-center justify-center h-full text-gray-500">
                                 Loading data...
@@ -359,7 +359,7 @@ export default function Dashboard() {
                     </div>
                     
                     {/* Probability of Collision Over Time Chart */}
-                    <div className="w-full h-[290px] relative">
+                    <div className="w-full h-[350px] relative">
                         {loading ? (
                             <div className="flex items-center justify-center h-full text-gray-500">
                                 Loading data...
