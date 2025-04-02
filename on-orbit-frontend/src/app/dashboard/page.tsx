@@ -348,7 +348,7 @@ export default function Dashboard() {
                 <section className="flex rounded-3xl bg-[#f9f9fa] flex-col w-full px-8 py-8">
                     
                     <div className="w-full flex justify-between gap-2">
-                        <h1 className="text-[16px] font-medium mb-4">Time vs Probability of Collision</h1>
+                        <h1 className="text-[16px] font-medium mb-4">Probability of Collision Over Time</h1>
                         <Input
                             type="text"
                             placeholder="Enter Object ID"
