@@ -29,7 +29,7 @@ export default function Navbar() {
         router.push('/');
     };
 
-    const isDashboardOrCesium = pathname === "/dashboard" || pathname.startsWith("/cesium-view");
+    const isDashboardOrCesium = pathname === "/dashboard" || pathname && pathname.startsWith("/cesium-view");
 
     return (
         <div className={`bg-white ${worksans.className}`}>
@@ -89,7 +89,7 @@ export default function Navbar() {
 
                                     <Link href="/cesium-view">
                                         <span className={`py-2 px-5 rounded-xl flex gap-2 items-center ${
-                                            pathname.startsWith("/cesium-view") ? "bg-[#f9f9fa] shadow-sm" : ""
+                                            pathname && pathname.startsWith("/cesium-view") ? "bg-[#f9f9fa] shadow-sm" : ""
                                         }`}>
                                             <Satellite className='h-4 w-4' />
                                             Visualization
