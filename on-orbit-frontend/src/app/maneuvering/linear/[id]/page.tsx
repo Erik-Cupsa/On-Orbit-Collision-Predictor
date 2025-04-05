@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useParams } from "next/navigation";
+import Loading from "@/app/loading";
 
 interface TrajectoryPoint {
   T_hours_before_TCA: number;
@@ -86,7 +87,7 @@ export default function ManeuveringDashboard() {
     series: [{ name: "Collision Probability", data: pcData }],
   };
 
-  if (loading) return <div>Loading tradespace data...</div>;
+  if (loading) return <div><Loading/></div>;
   if (error) return <div>Error: {error}</div>;
 
   return (

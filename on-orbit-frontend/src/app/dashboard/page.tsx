@@ -41,6 +41,7 @@ interface CDM {
 
 interface Collision {
     id: number;
+    cdm: number;
     probability_of_collision: number;
 }
 
@@ -149,7 +150,7 @@ export default function Dashboard() {
     
             // Merge CDM data with collision probability
             const mergedData: CDMWithCollision[] = cdmData.map((cdm) => {
-                const collisionInfo = collisionData.find((collision) => collision.id === cdm.id);
+                const collisionInfo = collisionData.find((collision) => collision.cdm === cdm.id);
                 return {
                     ...cdm,
                     probability_of_collision: collisionInfo?.probability_of_collision ?? 0, // Default to 0 if missing
@@ -224,7 +225,14 @@ export default function Dashboard() {
                             <div className="w-32 p-2">{cdm.sat2_object_designator}</div>
                             <div className="w-72 p-2">{new Date(cdm.creation_date).toUTCString()}</div>
                             <div className="w-32 p-2">{cdm.miss_distance.toFixed(3)}</div>
-                            <div className="w-40 p-2">{(cdm.probability_of_collision * 100).toFixed(2)}%</div>
+                            {cdm.probability_of_collision > 0
+                                ? (() => {
+                                    const p = cdm.probability_of_collision;
+                                    const exp = Math.floor(Math.log10(p));
+                                    const mantissa = p / Math.pow(10, exp);
+                                    return `${mantissa.toFixed(2)}e${exp}`;
+                                })()
+                                : "0.0000"}
                             <div className="w-28 p-2 text-[#0000EE]">
                                 <a
                                 href={`/cesium-view/${cdm.id}`}
