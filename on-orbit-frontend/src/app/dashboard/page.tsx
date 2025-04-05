@@ -204,7 +204,8 @@ export default function Dashboard() {
                         <div className="w-72 p-2">Created</div>
                         <div className="w-32 p-2">Miss Distance</div>
                         <div className="w-40 p-2">Collision Probability</div>
-                        <div className="w-28 p-2">Link</div>
+                        <div className="w-28 p-2">Visualization Link</div>
+                        <div className="w-28 p-2">Maneuver</div>
                     </div>
                 
                     {/* Scrollable Table Body */}
@@ -241,6 +242,14 @@ export default function Dashboard() {
                                     <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                                 </svg>
                                 View
+                                </a>
+                            </div>
+                            <div className="w-28 p-2 text-[#0000EE]">
+                                <a
+                                    href={`/maneuvering/heatmap/${cdm.id}`}
+                                    className="flex gap-1 items-center"
+                                >
+                                    Maneuver
                                 </a>
                             </div>
                             </div>

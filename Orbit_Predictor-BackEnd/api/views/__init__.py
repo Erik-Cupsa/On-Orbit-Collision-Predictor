@@ -4,3 +4,5 @@ from .cdm_views import CDMSerializerListCreateView, CDMCalcDetailView, CDMViewSe
 from .user_views import RegisterView, LoginView, UserViewSet
 from .refresh_token_views import RefreshTokenView
 from .organization_views import OrganizationViewSet
+from .tradespace_heatmap_views import CollisionTradespaceView
+from .tradespace_linear_views import CollisionLinearTradespaceView
