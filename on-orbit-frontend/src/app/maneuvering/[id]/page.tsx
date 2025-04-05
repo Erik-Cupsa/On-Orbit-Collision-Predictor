@@ -35,7 +35,7 @@ export default function ManeuveringDashboard() {
         };
 
         // Use the id from the URL as the cdm_id.
-        const response = await fetch("http://localhost:8000/api/tradespace/", {
+        const response = await fetch("http://localhost:8000/api/tradespace/linear/", {
           method: "POST",
           headers,
           body: JSON.stringify({ cdm_id: Number(id) }),
