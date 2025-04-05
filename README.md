@@ -6,10 +6,10 @@ In this project, our team was commissioned by the Canadian Space Agency to devel
 
 | Member            | Position           | Responsibilities                   |
 | ----------------- | ------------------ | ---------------------------------- |
-| **Erik Cupsa**    | Full Stack + ML     | Technical leadership, ML models    |
+| **Erik Cupsa**    | Full Stack + ML     | Authentication|
 | **Yassine Mimet** | Back End            | Collision Calculations, Data Processing |
-| **Wasif Somji**   | Full Stack          | Full-Stack Development, Backend Architecture |
-| **Masa Kagami**   | Front End + ML      | UI/UX design and ML integration    |
+| **Wasif Somji**   | Full Stack          | API Development, Backend Architecture|
+| **Masa Kagami**   | Front End + ML      | UI/UX design + Highcharts integration|
 
 ## 🚀 Key Features
 
