@@ -49,7 +49,10 @@ export default function Navbar() {
                     <div className="flex items-center gap-5 text-black">
                         <Link href="/about">About</Link>
                         {isLoggedIn ? (
-                            <button onClick={handleLogout}>Logout</button>
+                            <>
+                                <button onClick={() => router.push('/dashboard')}>Dashboard</button>
+                                <button onClick={handleLogout}>Logout</button>
+                            </>
                         ) : (
                             <>
                                 {pathname !== "/login" && (
