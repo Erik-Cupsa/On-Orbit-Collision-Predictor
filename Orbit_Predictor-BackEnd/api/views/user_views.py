@@ -110,3 +110,11 @@ class UserViewSet(viewsets.ModelViewSet):
             if kwargs.get('pk') != str(request.user.id):
                 return Response({'detail': 'Not allowed to update other users.'}, status=403)
         return super().partial_update(request, *args, **kwargs)
+    
+
+class CurrentUserView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user

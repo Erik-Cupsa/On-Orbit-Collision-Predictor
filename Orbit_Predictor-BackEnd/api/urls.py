@@ -4,7 +4,7 @@ from .views import (
     CollisionListCreateView, CollisionDetailView, UserViewSet,
     ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
     CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView, OrganizationViewSet,
-    CollisionTradespaceView, CollisionLinearTradespaceView
+    CollisionTradespaceView, CollisionLinearTradespaceView, CurrentUserView
 )
 
 router = DefaultRouter()
@@ -25,5 +25,6 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('refresh/', RefreshTokenView.as_view(), name='refresh_token'),
+    path('users/current_user/', CurrentUserView.as_view(), name='current_user'),
     path('', include(router.urls)),
 ]
