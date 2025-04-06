@@ -34,9 +34,8 @@ export default function SignUp() {
             });
 
             if (!response.ok) {
-                // Handle HTTP errors
                 const errorData = await response.json();
-                alert(`Error: ${errorData.message || "Something went wrong!"}`);
+                setError(errorData.email || errorData.message || "Something went wrong!");
                 return;
             }
 

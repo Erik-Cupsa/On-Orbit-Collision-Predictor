@@ -25,7 +25,7 @@ export default function Login() {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error(`Login failed. Please check your credentials.`);
             }
 
             const data = await response.json();
@@ -47,6 +47,13 @@ export default function Login() {
         <div className="flex flex-col w-screen h-screen">
             <div className='w-full max-w-md m-auto flex flex-col gap-8'>
                 <h1 className='font-extrabold sm:text-[54px] text-[36px] sm:leading-[64px] leading-[46px] text-black'>Login</h1>
+
+                {error && (
+                    <div className="px-4 py-3 rounded-md bg-red-100 border border-red-300 text-red-700 text-sm font-medium shadow-sm">
+                        {error}
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-black text-[16px] font-medium mb-2" htmlFor="email">
