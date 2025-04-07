@@ -58,7 +58,7 @@ export default function ManeuveringHeatmapPage() {
       try {
         const accessToken = localStorage.getItem("token");
         if (!accessToken) {
-          throw new Error("Failed to fetch CDMs: Please login to view this page");
+          throw new Error("Please login to view this page");
         }
 
         const headers = {

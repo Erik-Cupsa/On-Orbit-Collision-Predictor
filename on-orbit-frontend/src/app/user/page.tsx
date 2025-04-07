@@ -22,7 +22,7 @@ export default function UserPage() {
         const fetchUser = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
-                setError("No access token found. Please login.");
+                setError("Please login to access this page.");
                 router.push("/login");
                 return;
             }
