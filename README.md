@@ -89,7 +89,40 @@ On-Orbit-Collision-Predictor/
 
    We're using Supabase for this. Configure the database settings in your .env file. Reference the .env.example file if needed.
 
-5. **Run Migrations**
+4. **Inputting CDMs**  
+
+   In order to input CDMs into the DB, you can use a configured endpoint and send in the CDM data as a JSON object. Here's how:
+
+   Assuming your backend is running on port `8000`:
+   Send a request to `http://localhost:8000/api/cdms/create/` with your CDM json object. Example:
+
+    `{
+     "CCSDS_CDM_VERS": "{{version}}",
+     "CREATION_DATE": "{{creation_date}}",
+     "ORIGINATOR": "{{originator}}",
+     "MESSAGE_ID": "{{message_id}}",
+     "TCA": "{{time_of_closest_approach}}",
+     "MISS_DISTANCE": "{{miss_distance}}",
+     "COLLISION_PROBABILITY": "{{collision_probability}}",
+     "SAT1_OBJECT": "{{sat1_object}}",
+     "SAT1_OBJECT_DESIGNATOR": "{{sat1_designator}}",
+     "SAT1_CATALOG_NAME": "{{sat1_catalog_name}}",
+     "SAT1_OBJECT_NAME": "{{sat1_object_name}}",
+     "SAT1_INTERNATIONAL_DESIGNATOR": "{{sat1_intl_designator}}",
+     "SAT1_OBJECT_TYPE": "{{sat1_object_type}}",
+     "SAT1_OPERATOR_ORGANIZATION": "{{sat1_operator_org}}",
+     "SAT1_COVARIANCE_METHOD": "{{sat1_covariance_method}}",
+     "SAT1_MANEUVERABLE": "{{sat1_maneuverable}}",
+     "SAT1_REFERENCE_FRAME": "{{sat1_reference_frame}}",
+     "SAT1_X": "{{sat1_x}}",
+     "SAT1_Y": "{{sat1_y}}"
+     // continue on with rest of fields
+   }`
+
+
+6. **Run DB Migrations**
+
+   If you modify the schema:
 
    ```bash
    cd Orbit_Predictor-BackEnd
