@@ -71,7 +71,14 @@ interface CDMWithCollision extends CDM {
 interface User {
   id: string;
   email: string;
-  // add other user properties if needed
+  role: string; // e.g. "admin", "user", etc.
+}
+
+interface Organization {
+  id: number;
+  name: string;
+  alert_threshold: number;
+  // other organization fields if needed
 }
 
 export default function Dashboard() {
@@ -89,6 +96,10 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   // For filtering by object ID in the charts (unchanged)
   const [searchObjectId, setSearchObjectId] = useState<string>("");
+  // State for organization details (from the organizations endpoint)
+  const [organization, setOrganization] = useState<Organization | null>(null);
+  // For editing the alert threshold (as text)
+  const [alertThreshold, setAlertThreshold] = useState<string>("");
 
   const router = useRouter();
 
@@ -169,6 +180,8 @@ export default function Dashboard() {
             const orgData = await orgResponse.json();
             if (orgData.length > 0) {
               // Use the first matching organization
+              setOrganization(orgData[0]);
+              setAlertThreshold(orgData[0].alert_threshold.toString());
               cdmsData = orgData[0].cdms;
             } else {
               // Fallback to default endpoint if no matching organization found
@@ -267,27 +280,30 @@ export default function Dashboard() {
     });
   };
 
-  // Handler for confirming interested CDMs via PATCH (currently commented out)
-  /*
-  const handleConfirmInterest = async () => {
-    if (!user) return;
+  // Handler for updating the alert threshold (admin only)
+  const handleUpdateAlertThreshold = async () => {
+    if (!organization) return;
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    // Parse the alert threshold from the text input
+    const parsedThreshold = parseFloat(alertThreshold);
+    if (isNaN(parsedThreshold)) {
+      alert("Please enter a valid number for the alert threshold.");
+      return;
+    }
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("Not authenticated");
-      }
-      const response = await fetch(`http://localhost:8000/api/users/${user.id}/`, {
+      const response = await fetch(`http://localhost:8000/api/organizations/${organization.id}/`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ interested_cdms: selectedCdms })
+        body: JSON.stringify({ alert_threshold: parsedThreshold })
       });
       if (!response.ok) {
-        throw new Error("Failed to update interested CDMs");
+        throw new Error("Failed to update alert threshold");
       }
-      alert("Your interested CDMs have been updated.");
+      alert("Alert threshold updated successfully");
     } catch (err: unknown) {
       if (err instanceof Error) {
         alert(err.message);
@@ -296,7 +312,6 @@ export default function Dashboard() {
       }
     }
   };
-  */
 
   // For non-agency users: filter CDMs using the existing search term
   const filteredCdms = cdms.filter((cdm) =>
@@ -463,6 +478,28 @@ export default function Dashboard() {
               </div>
             )}
           </section>
+
+          {/* Admin Alert Threshold Section (moved below the Selected CDMs) */}
+          {user?.role === "admin" && organization && (
+            <section className="flex flex-col bg-[#f9f9fa] rounded-3xl w-full px-8 py-4 mb-4">
+              <h1 className="text-[16px] font-medium mb-2">Update Alert Threshold</h1>
+              <div className="flex items-center gap-2">
+                <Input
+                  type="text"
+                  placeholder="Enter alert threshold"
+                  value={alertThreshold}
+                  onChange={(e) => setAlertThreshold(e.target.value)}
+                  className="w-[200px]"
+                />
+                <button
+                  onClick={handleUpdateAlertThreshold}
+                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
+                  Update
+                </button>
+              </div>
+            </section>
+          )}
 
           {/* Confirm Button (Commented Out) */}
           {/*
