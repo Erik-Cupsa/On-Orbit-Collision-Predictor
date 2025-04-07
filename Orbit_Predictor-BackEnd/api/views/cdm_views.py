@@ -7,8 +7,28 @@ from django.conf import settings
 
 from ..models import CDM
 from ..models import Collision
+from ..models import Organization
 from ..serializers import CDMSerializer
 from ..permissions import IsAdmin, CanViewCDM
+
+SPACE_AGENCY_MAP = {
+    "asc-csa.gc.ca": "CSA",
+    "nasa.gov": "NASA",
+    "esa.int": "ESA",
+    "roscosmos.ru": "Roscosmos",
+    "cnsa.gov.cn": "CNSA",
+    "isro.gov.in": "ISRO",
+    "jaxa.jp": "JAXA",
+    "gov.uk/government/organisations/uk-space-agency": "UK Space Agency",
+    "cnes.fr": "CNES",
+    "dlr.de": "DLR",
+    "asi.it": "ASI",
+    "aeb.gov.br": "AEB",
+    "kari.re.kr": "KARI",
+    "space.gov.ae": "UAE Space Agency",
+    "australianspaceagency.gov.au": "Australian Space Agency",
+    "space.gov.il": "Israel Space Agency"
+}
 
 class CDMSerializerListCreateView(generics.ListCreateAPIView):
     queryset = CDM.objects.all()
@@ -133,10 +153,19 @@ class CDMCreateView(APIView):
         if not user_email:
             return Response({"error": "User email not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
+        user_domain = user_email.split('@')[-1].lower()
+        org_name = SPACE_AGENCY_MAP.get(user_domain, None)
 
-        # TODO : implement sending probability of collision threshold based off the user's organization / preferences
+        send_email_flag = True
+        if org_name:
+            try:
+                org_obj = Organization.objects.get(name=org_name)
+                if collision.probability_of_collision <= org_obj.alert_threshold:
+                    send_email_flag = False
+            except Organization.DoesNotExist:
+                send_email_flag = False
 
-        if user.notifications:
+        if user.notifications and send_email_flag:
             subject = f"On-Orbit Collision Predictor Notification for Collision: {cdm.message_id}"
             message = (
                 f"{action} CDM entry with the following details:\n"
