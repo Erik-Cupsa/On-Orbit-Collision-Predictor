@@ -8,3 +8,5 @@ Orbit_Predictor-BackEnd/api/serializers/__pycache__/
 Orbit_Predictor-BackEnd/api/views/__pycache__/
 Orbit_Predictor-BackEnd/api/management/commands/__pycache__/
 node_modules
+
+.env
