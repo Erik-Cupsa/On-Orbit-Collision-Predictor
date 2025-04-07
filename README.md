@@ -30,7 +30,7 @@ In this project, our team was commissioned by the Canadian Space Agency to devel
 
 - **Backend**: Django
 - **Machine Learning**: MATLAB for initial calculations, Python (scikit-learn) for machine learning model development
-- **Frontend**: Next.js with Cesium for 3D visualization
+- **Frontend**: Next.js with D3 for 3D visualization
 - **Database**: PostgreSQL hosted on Supabase
 
 ## 📂 Project Structure
@@ -96,15 +96,6 @@ On-Orbit-Collision-Predictor/
    python manage.py makemigrations
    python manage.py migrate
    ```
-   **Database Layout**:
-   
-   **api_cdms**: This table holds the CDM data. If a conjuction is present, a entry will be created in the api_conjuction table corresponding to the CDM.
-   
-   **api_collision**: This table was created from the Collision model. It stores data for collisions related to conjunctions, including information like satellite_id, collision_date,    and risk_factor.
-
-   **api_conjunction**: This table corresponds to the Conjunction model, storing conjunction records.
-
-   **api_probabilitycalc**: This table was created from the ProbabilityCalc model. It stores calculated probabilities related to collisions, including fields like probability_value       and time_to_impact.
 
 ### Running the Project
 
@@ -118,31 +109,3 @@ This command will start:
 - **Next.js frontend** at `http://localhost:3000`
 - **Django backend** at `http://localhost:8000`
 
-## 🚀 Development Roadmap
-
-### Phase 1: App Development
-- **User Authentication**: Implement secure login and registration.
-- **Basic Prediction Model**: Enable users to input data and generate collision predictions.
-- **Admin Panel**: Develop basic admin functionalities.
-
-### Phase 2: Enhanced Features
-- **Prediction Accuracy**: Improve the collision prediction model using more sophisticated algorithms.
-- **Report Management**: Enable detailed reports for users.
-- **Notifications**: Add email notifications for high-risk predictions.
-
-### Phase 3: Scalability & Optimization
-- **Performance Optimization**: Ensure the system performs well under heavy data loads.
-- **Security Enhancements**: Implement additional security measures.
-- **Mobile App**: Develop a mobile version of the system for wider accessibility.
-- 
-
-## 📞 Contact Us
-
-For more information or to get involved, please contact:
-
-- **Erik Cupsa**: [erik.cupsa@mail.mcgill.ca](mailto:erik.cupsa@mail.mcgill.ca)
-- **Wasif Somji**: [wasif.somji@mail.mcgill.ca](mailto:wasif.somji@mail.mcgill.ca)
-
----
-
-This `README.md` file should provide a comprehensive overview for collaborators or new contributors to the project. Let me know if you need further details or adjustments!
