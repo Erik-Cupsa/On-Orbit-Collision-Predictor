@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Link from 'next/link';
@@ -5,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { worksans } from '@/app/styles/font';
-import { ChartPie, Satellite } from 'lucide-react';
+import { ChartPie, Satellite, User } from 'lucide-react';
 
 export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -93,6 +94,15 @@ export default function Navbar() {
                                         }`}>
                                             <Satellite className='h-4 w-4' />
                                             Visualization
+                                        </span>
+                                    </Link>
+                                    
+                                    <Link href="/user">
+                                        <span className={`py-2 px-5 rounded-xl flex gap-2 items-center ${
+                                            pathname === "/users" ? "bg-[#f9f9fa] shadow-sm" : ""
+                                        }`}>
+                                            <User className='h-4 w-4' />
+                                            Profile
                                         </span>
                                     </Link>
                                 </div>
