@@ -63,7 +63,7 @@ export default function UserPage() {
   return (
     <>
       <Navbar />
-      <div className="flex-1 p-10 bg-gray-50 min-h-screen">
+      <div className="flex-1 p-10 bg-white min-h-screen">
         {/* Back Button */}
         <div className="mb-4">
           <Link href="/dashboard">
@@ -81,13 +81,6 @@ export default function UserPage() {
             </button>
           </Link>
         </div>
-
-        <section className="mb-8">
-          <span>
-            <span className="text-gray-400">User&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;</span>
-            <span className="text-black">Profile</span>
-          </span>
-        </section>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center">
@@ -111,8 +104,8 @@ export default function UserPage() {
           </div>
         ) : user ? (
           <div className="max-w-4xl mx-auto w-full">
-            <div className="rounded-3xl bg-white flex flex-col w-full p-8 shadow-md">
-              <h1 className="text-2xl font-bold text-black mb-6 text-center">
+            <div className="rounded-3xl bg-gray-50 flex flex-col w-full p-8 shadow-md">
+              <h1 className="text-2xl text-black mb-6 text-center">
                 User Profile
               </h1>
               <div className="space-y-4">
