@@ -128,22 +128,29 @@ class CDMCreateView(APIView):
 
         collision = Collision.create_from_cdm(cdm)
 
+        user = self.request.user
+        user_email = getattr(user, 'email', None)
+        if not user_email:
+            return Response({"error": "User email not provided."}, status=status.HTTP_400_BAD_REQUEST)
+
+
         # TODO : implement sending probability of collision threshold based off the user's organization / preferences
 
-        subject = f"On-Orbit Collision Predictor Notification for Collision: {cdm.message_id}"
-        message = (
-            f"{action} CDM entry with the following details:\n"
-            f"A new collision was created with the following details:\n"
-            f"Message ID: {cdm.message_id}\n"
-            f"TCA: {cdm.tca}\n"
-            f"Miss Distance: {cdm.miss_distance}\n"
-            f"Collision ID: {collision.id}\n"
-            f"Probability of Collision: {collision.probability_of_collision}\n"
-        )
-        from_email = settings.EMAIL_HOST_USER
-        # Replace with your conf  igured recipient(s). This could be dynamic.
-        recipient_list = ["wasif.somji@mail.mcgill.ca", "swerikcode@gmail.com"]  
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        if user.notifications:
+            subject = f"On-Orbit Collision Predictor Notification for Collision: {cdm.message_id}"
+            message = (
+                f"{action} CDM entry with the following details:\n"
+                f"A new collision was created with the following details:\n"
+                f"Message ID: {cdm.message_id}\n"
+                f"TCA: {cdm.tca}\n"
+                f"Miss Distance: {cdm.miss_distance}\n"
+                f"Collision ID: {collision.id}\n"
+                f"Probability of Collision: {collision.probability_of_collision}\n"
+            )
+            from_email = settings.EMAIL_HOST_USER
+            recipient_list = [user_email] 
+
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
         if created:
             return Response(

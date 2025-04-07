@@ -52,6 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)  # Required for admin access
     created_at = models.DateTimeField(auto_now_add=True)
 
+    notifications = models.BooleanField(default=True)
 
     interested_cdms = models.ManyToManyField(
         'CDM',
