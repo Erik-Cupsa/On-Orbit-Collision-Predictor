@@ -7,6 +7,26 @@ from rest_framework import serializers
 
 from ..models import User, CDM
 
+SPACE_AGENCY_DOMAINS = [
+    "asc-csa.gc.ca",
+    "nasa.gov",
+    "esa.int",
+    "roscosmos.ru",
+    "cnsa.gov.cn",
+    "isro.gov.in",
+    "jaxa.jp",
+    "gov.uk/government/organisations/uk-space-agency",
+    "cnes.fr",
+    "dlr.de",
+    "asi.it",
+    "aeb.gov.br",
+    "kari.re.kr",
+    "space.gov.ae",
+    "australianspaceagency.gov.au",
+    "space.gov.il"
+]
+
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     registration_code = serializers.CharField(write_only=True, required=False, allow_blank=True)
@@ -46,7 +66,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         # Determine role based on email domain and registration code
         role = 'user'  # Default role
-        if domain == 'asc-csa.gc.ca':
+        if domain in SPACE_AGENCY_DOMAINS:
             if registration_code:
                 role = 'admin'
             else:

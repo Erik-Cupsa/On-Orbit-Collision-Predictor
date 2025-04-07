@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Footer from '@/components/footer/page';
-import Csa from '@/components/csa/csa';
 
 export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [registrationCode, setRegistrationCode] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
 
@@ -21,6 +22,12 @@ export default function SignUp() {
             return;
         }
 
+        // If the user is registering as admin, ensure a registration code is provided.
+        if (isAdmin && registrationCode.trim() === '') {
+            alert("Registration code is required for admin registration.");
+            return;
+        }
+
         try {
             const response = await fetch("http://localhost:8000/api/register/", {
                 method: "POST",
@@ -29,7 +36,10 @@ export default function SignUp() {
                 },
                 body: JSON.stringify({
                     email,
-                    password
+                    password,
+                    // Only include the registration code if admin is selected.
+                    registration_code: isAdmin ? registrationCode : undefined,
+                    is_admin: isAdmin
                 }),
             });
 
@@ -66,6 +76,37 @@ export default function SignUp() {
                             required
                         />
                     </div>
+
+                    <div className="mb-4">
+                        <label className="flex items-center text-black text-[16px] font-medium" htmlFor="is-admin">
+                            <input
+                                type="checkbox"
+                                id="is-admin"
+                                checked={isAdmin}
+                                onChange={(e) => setIsAdmin(e.target.checked)}
+                                className="mr-2"
+                            />
+                            Register as admin
+                        </label>
+                    </div>
+
+                    {/* Show registration code field only if admin checkbox is checked */}
+                    {isAdmin && (
+                        <div className="mb-2">
+                            <label className="block text-black text-[16px] font-medium mb-2" htmlFor="registration-code">
+                                Registration Code (required for admins)
+                            </label>
+                            <input
+                                type="text"
+                                id="registration-code"
+                                value={registrationCode}
+                                onChange={(e) => setRegistrationCode(e.target.value)}
+                                className="shadow appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                            />
+                        </div>
+                    )}
+
                     <div className="mb-2">
                         <label className="block text-black text-[16px] font-medium mb-2" htmlFor="password">
                             Password
@@ -102,7 +143,6 @@ export default function SignUp() {
                     </div>
                 </form>
             </div>
-            {/* <Csa /> */}
             <Footer />
         </div>
     );
