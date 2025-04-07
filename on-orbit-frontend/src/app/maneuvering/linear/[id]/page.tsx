@@ -5,6 +5,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useParams } from "next/navigation";
 import Loading from "@/app/loading";
+import Link from "next/link";
 
 interface TrajectoryPoint {
   T_hours_before_TCA: number;
@@ -92,6 +93,20 @@ export default function ManeuveringDashboard() {
 
   return (
     <div className="p-4">
+        <Link href={`/maneuvering/heatmap/${id}`}>
+          <button className="bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded flex items-center gap-2">
+            <svg
+              className="w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Heatmap
+          </button>
+        </Link>
       <h1 className="text-2xl font-bold mb-4">Tradespace Trajectory</h1>
       <div className="mb-8">
         <HighchartsReact highcharts={Highcharts} options={missDistanceOptions} />
