@@ -4,7 +4,7 @@ from .views import (
     CollisionListCreateView, CollisionDetailView, UserViewSet,
     ProbabilityCalcListCreateView, ProbabilityCalcDetailView,
     CDMSerializerListCreateView, CDMCalcDetailView, RegisterView, LoginView, CDMViewSet, RefreshTokenView, CDMCreateView, OrganizationViewSet,
-    CollisionTradespaceView, CollisionLinearTradespaceView, CurrentUserView
+    CollisionTradespaceView, CollisionLinearTradespaceView, CurrentUserView, CDMPrivacyToggleView, UserNotificationToggleView
 )
 
 router = DefaultRouter()
@@ -20,11 +20,13 @@ urlpatterns = [
     # path('cdms/', CDMSerializerListCreateView.as_view(), name='cdm-list-create'),
     path('cdms/<int:pk>/', CDMCalcDetailView.as_view(), name='cdm-detail'),
     path('cdms/create/', CDMCreateView.as_view(), name='cdm-create'),
+    path('cdms/<int:pk>/privacy/', CDMPrivacyToggleView.as_view(), name='cdm-privacy-toggle'),
     path('tradespace/', CollisionTradespaceView.as_view(), name='collision-tradespace'),
     path('tradespace/linear/', CollisionLinearTradespaceView.as_view(), name='collision-linear-tradespace'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('refresh/', RefreshTokenView.as_view(), name='refresh_token'),
     path('users/current_user/', CurrentUserView.as_view(), name='current_user'),
+    path('users/notifications/', UserNotificationToggleView.as_view(), name='user-notification-toggle'),
     path('', include(router.urls)),
 ]

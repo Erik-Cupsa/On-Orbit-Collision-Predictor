@@ -40,6 +40,29 @@ class CDMCalcDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CDM.objects.all()
     serializer_class = CDMSerializer
 
+class CDMPrivacyToggleView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def patch(self, request, pk, *args, **kwargs):
+        """
+        Enable or disable the privacy flag on a CDM.
+        Expected request data: {"privacy": true/false}
+        """
+        try:
+            cdm = CDM.objects.get(pk=pk)
+        except CDM.DoesNotExist:
+            return Response({"error": "CDM not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        new_privacy = request.data.get("privacy")
+        if new_privacy is None:
+            return Response({"error": "Privacy value must be provided."}, status=status.HTTP_400_BAD_REQUEST)
+        if not isinstance(new_privacy, bool):
+            return Response({"error": "Privacy value must be a boolean."}, status=status.HTTP_400_BAD_REQUEST)
+
+        cdm.privacy = new_privacy
+        cdm.save()
+        return Response({"message": f"CDM privacy updated to {new_privacy}."}, status=status.HTTP_200_OK)
+
 class CDMViewSet(viewsets.ModelViewSet):
     serializer_class = CDMSerializer
 

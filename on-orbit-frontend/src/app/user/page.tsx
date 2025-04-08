@@ -10,6 +10,7 @@ interface User {
   email: string;
   role: string;
   created_at: string;
+  notifications: boolean;
 }
 
 export default function UserPage() {
@@ -60,6 +61,36 @@ export default function UserPage() {
     fetchUser();
   }, [router]);
 
+  const handleToggleNotifications = async () => {
+    if (!user) return;
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Token not found.");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:8000/api/users/notifications/", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ notifications: !user.notifications }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update notifications.");
+      }
+      // Update local state with new value
+      setUser({ ...user, notifications: !user.notifications });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred.");
+      }
+    }
+  };
+
   return (
     <div className="p-10 ml-[250px] w-full">
       <section>
@@ -106,6 +137,22 @@ export default function UserPage() {
                   <strong>Created At:</strong>{" "}
                   {new Date(user.created_at).toLocaleString()}
                 </p>
+                <div className="flex items-center gap-4">
+                  <strong>Enable notifications:</strong>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={user.notifications}
+                    onChange={handleToggleNotifications}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-red-500 peer-checked:bg-green-500 peer-focus:outline-none rounded-full dark:bg-gray-700 
+                                  peer-checked:after:translate-x-full peer-checked:after:border-white 
+                                  after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white 
+                                  after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+                  </div>
+                </label>
+                </div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ from ..serializers import (
     RefreshTokenSerializer
 )
 from ..models import User, CDM
+from rest_framework.views import APIView
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -118,3 +119,25 @@ class CurrentUserView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+    
+class UserNotificationToggleView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Enable or disable user notifications.
+        Expected request data: {"notifications": true/false}
+        """
+        new_value = request.data.get("notifications")
+        if new_value is None:
+            return Response({"error": "Field 'notifications' must be provided."},
+                            status=status.HTTP_400_BAD_REQUEST)
+        if not isinstance(new_value, bool):
+            return Response({"error": "Field 'notifications' must be a boolean."},
+                            status=status.HTTP_400_BAD_REQUEST)
+        # Update the authenticated user's notifications setting
+        user = request.user
+        user.notifications = new_value
+        user.save()
+        return Response({"message": f"User notifications updated to {new_value}."},
+                        status=status.HTTP_200_OK)

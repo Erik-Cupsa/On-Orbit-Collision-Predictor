@@ -56,6 +56,7 @@ interface CDM {
   sat2_object_designator: string;
   creation_date: string;
   miss_distance: number;
+  privacy: boolean;
 }
 
 interface Collision {
@@ -313,6 +314,33 @@ export default function Dashboard() {
     }
   };
 
+  const handleTogglePrivacy = async (cdmId: number, currentPrivacy: boolean) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Authentication token not found.");
+      return;
+    }
+    try {
+      const response = await fetch(`http://localhost:8000/api/cdms/${cdmId}/privacy/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ privacy: !currentPrivacy })
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update privacy.");
+      }
+      // Update local state so the UI reflects the updated privacy status.
+      setCdms((prev) =>
+        prev.map((cdm) => (cdm.id === cdmId ? { ...cdm, privacy: !currentPrivacy } : cdm))
+      );
+    } catch (err: unknown) {
+      alert(err instanceof Error ? err.message : "An unknown error occurred.");
+    }
+  };
+
   // For non-agency users: filter CDMs using the existing search term
   const filteredCdms = cdms.filter((cdm) =>
     cdm.id.toString().includes(searchTerm) ||
@@ -429,6 +457,7 @@ export default function Dashboard() {
                   <div className="w-40 p-2">Collision Probability</div>
                   <div className="w-28 p-2">Visualization Link</div>
                   <div className="w-28 p-2">Maneuver</div>
+                  {user?.role === "admin" && <div className="w-20 p-2">Privacy</div>}
                 </div>
                 <div className="overflow-y-auto max-h-48">
                   <div className="flex flex-col gap-1">
@@ -470,6 +499,26 @@ export default function Dashboard() {
                                 Maneuver
                               </a>
                             </div>
+                            {user?.role === "admin" && (
+                              <div className="w-20 p-2">
+                                <button onClick={() => handleTogglePrivacy(cdm.id, cdm.privacy)}>
+                                  {cdm.privacy ? (
+                                    // Render a "locked" icon when privacy is enabled
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c-1.1 0-2 .9-2 2v3h4v-3c0-1.1-.9-2-2-2z" />
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4" />
+                                      <rect width="12" height="9" x="6" y="11" rx="2" ry="2" />
+                                    </svg>
+                                  ) : (
+                                    // Render an "unlocked" icon when privacy is disabled
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11V7a4 4 0 00-4 4m8 0c0-2.21-1.79-4-4-4s-4 1.79-4 4v4h8v-4z" />
+                                      <rect width="12" height="9" x="6" y="11" rx="2" ry="2" />
+                                    </svg>
+                                  )}
+                                </button>
+                              </div>
+                            )}
                           </div>
                         ))
                     ) : (
@@ -543,6 +592,7 @@ export default function Dashboard() {
                 <div className="w-40 p-2">Collision Probability</div>
                 <div className="w-28 p-2">Visualization Link</div>
                 <div className="w-28 p-2">Maneuver</div>
+                {user?.role == "admin" && (<div className="w-28 p-2">Privacy</div>)}
               </div>
               <div className="overflow-y-auto max-h-48">
                 <div className="flex flex-col gap-1">
@@ -580,6 +630,26 @@ export default function Dashboard() {
                             Maneuver
                           </a>
                         </div>
+                        {user?.role === "admin" && (
+                          <div className="w-20 p-2">
+                            <button onClick={() => handleTogglePrivacy(cdm.id, cdm.privacy)}>
+                              {cdm.privacy ? (
+                                // Render a "locked" icon when privacy is enabled
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c-1.1 0-2 .9-2 2v3h4v-3c0-1.1-.9-2-2-2z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4" />
+                                  <rect width="12" height="9" x="6" y="11" rx="2" ry="2" />
+                                </svg>
+                              ) : (
+                                // Render an "unlocked" icon when privacy is disabled
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11V7a4 4 0 00-4 4m8 0c0-2.21-1.79-4-4-4s-4 1.79-4 4v4h8v-4z" />
+                                  <rect width="12" height="9" x="6" y="11" rx="2" ry="2" />
+                                </svg>
+                              )}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     ))
                   ) : (

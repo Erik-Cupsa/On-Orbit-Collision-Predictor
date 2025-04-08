@@ -3,7 +3,7 @@ import "./globals.css";
 import { worksans } from "./styles/font";
 
 export const metadata: Metadata = {
-  title: "On Orbit Collision Avoidance",
+  title: "On Orbit Collision Predictor",
 };
 
 export default function RootLayout({
