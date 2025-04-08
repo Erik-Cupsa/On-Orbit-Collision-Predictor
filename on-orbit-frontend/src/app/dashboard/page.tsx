@@ -17,6 +17,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import 'chartjs-adapter-date-fns';
+import Link from "next/link";
 
 ChartJS.register(
   CategoryScale,
@@ -471,7 +472,9 @@ export default function Dashboard() {
                               index % 2 === 0 ? "bg-white" : "bg-gray-50"
                             }`}
                           >
-                            <div className="w-16 p-2">{cdm.id}</div>
+                            <Link href={`/cdm-detail/${cdm.id}`}>
+                              <div className="w-16 p-2">{cdm.id}</div>
+                            </Link>
                             <div className="w-32 p-2">{cdm.sat1_object_designator}</div>
                             <div className="w-32 p-2">{cdm.sat2_object_designator}</div>
                             <div className="w-72 p-2">{new Date(cdm.creation_date).toUTCString()}</div>
