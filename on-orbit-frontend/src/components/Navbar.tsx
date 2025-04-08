@@ -30,7 +30,7 @@ export default function Navbar() {
         router.push('/');
     };
 
-    const isDashboardOrCesium = pathname === "/dashboard" || pathname && pathname.startsWith("/cesium-view");
+    const isDashboardOrCesium = pathname === "/dashboard" || pathname && pathname.startsWith("/cesium-view") || pathname && pathname.startsWith("/maneuvering") || pathname && pathname.startsWith("/user");
 
     return (
         <div className={`bg-white ${worksans.className}`}>
@@ -99,7 +99,7 @@ export default function Navbar() {
                                     
                                     <Link href="/user">
                                         <span className={`py-2 px-5 rounded-xl flex gap-2 items-center ${
-                                            pathname === "/users" ? "bg-[#f9f9fa] shadow-sm" : ""
+                                            pathname === "/user" ? "bg-[#f9f9fa] shadow-sm" : ""
                                         }`}>
                                             <User className='h-4 w-4' />
                                             Profile

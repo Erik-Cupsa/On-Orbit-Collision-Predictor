@@ -447,14 +447,16 @@ export default function Dashboard() {
                             <div className="w-32 p-2">{cdm.sat2_object_designator}</div>
                             <div className="w-72 p-2">{new Date(cdm.creation_date).toUTCString()}</div>
                             <div className="w-32 p-2">{cdm.miss_distance.toFixed(3)}</div>
-                            {cdm.probability_of_collision > 0
-                              ? (() => {
-                                  const p = cdm.probability_of_collision;
-                                  const exp = Math.floor(Math.log10(p));
-                                  const mantissa = p / Math.pow(10, exp);
-                                  return `${mantissa.toFixed(2)}e${exp}`;
-                                })()
-                              : "0.0000"}
+                            <div className="w-40 p-2">
+                                {cdm.probability_of_collision > 0
+                                ? (() => {
+                                    const p = cdm.probability_of_collision;
+                                    const exp = Math.floor(Math.log10(p));
+                                    const mantissa = p / Math.pow(10, exp);
+                                    return `${mantissa.toFixed(2)}e${exp}`;
+                                    })()
+                                : "0.0000"}
+                            </div>
                             <div className="w-28 p-2 text-[#0000EE]">
                               <a href={`/cesium-view/${cdm.id}`} className="flex gap-1 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0000EE">

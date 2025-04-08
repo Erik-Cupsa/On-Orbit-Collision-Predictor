@@ -157,7 +157,7 @@ export default function CesiumViewSelectionPage() {
   return (
     <div className="pl-[250px] flex flex-1 flex-col h-screen w-full ml-10 p-10 gap-20">
       <section>
-        <span><span className="text-gray-400">Cesium&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp; </span><span className="text-black">Orbit Visualization</span></span>
+        <span><span className="text-gray-400">Dashboard&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp; </span><span className="text-black">Orbit Visualization</span></span>
       </section>
 
       <div className="max-w-4xl mx-auto w-full ">

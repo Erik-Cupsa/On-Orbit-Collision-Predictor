@@ -88,11 +88,11 @@ export default function ManeuveringDashboard() {
     series: [{ name: "Collision Probability", data: pcData }],
   };
 
-  if (loading) return <div><Loading/></div>;
+  if (loading) return <div className=""><Loading/></div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 ml-[250px] w-full">
         <Link href={`/maneuvering/heatmap/${id}`}>
           <button className="bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded flex items-center gap-2">
             <svg

@@ -61,27 +61,14 @@ export default function UserPage() {
   }, [router]);
 
   return (
-    <>
-      <Navbar />
+    <div className="p-10 ml-[250px] w-full">
+      <section>
+        <span>
+          <span className="text-gray-400">Dashboards&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp; </span>
+          <span className="text-black">Overview</span>
+        </span>
+      </section>
       <div className="flex-1 p-10 bg-white min-h-screen">
-        {/* Back Button */}
-        <div className="mb-4">
-          <Link href="/dashboard">
-            <button className="bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded flex items-center gap-2">
-              <svg
-                className="w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Dashboard
-            </button>
-          </Link>
-        </div>
-
         {loading ? (
           <div className="flex flex-col items-center justify-center">
             <div className="text-center">
@@ -128,6 +115,6 @@ export default function UserPage() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
